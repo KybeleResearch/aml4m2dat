@@ -1,0 +1,337 @@
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
+package SQL2003.provider;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.edit.command.CommandParameter;
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.IItemPropertySource;
+import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
+import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.emf.edit.provider.ViewerNotification;
+
+import SQL2003.SQL2003Factory;
+import SQL2003.SQL2003Package;
+import SQL2003.Schema;
+import SQL2003.impl.PredefinedTypeImpl;
+
+/**
+ * This is the item provider adapter for a {@link SQL2003.Schema} object. <!--
+ * begin-user-doc --> <!-- end-user-doc -->
+ * 
+ * @generated
+ */
+public class SchemaItemProvider extends ItemProviderAdapter implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+	/**
+	 * This constructs an instance from a factory and a notifier. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public SchemaItemProvider(AdapterFactory adapterFactory) {
+		super(adapterFactory);
+	}
+
+	/**
+	 * This returns the property descriptors for the adapted class. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object) {
+		if (itemPropertyDescriptors == null) {
+			super.getPropertyDescriptors(object);
+
+			addNamePropertyDescriptor(object);
+		}
+		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Name feature.
+	 * <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Schema_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Schema_name_feature", "_UI_Schema_type"),
+				 SQL2003Package.Literals.SCHEMA__NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(SQL2003Package.Literals.SCHEMA__BEHAVIOURAL_COMPONENTS);
+			childrenFeatures.add(SQL2003Package.Literals.SCHEMA__DATATYPES);
+			childrenFeatures.add(SQL2003Package.Literals.SCHEMA__TABLES);
+		}
+		return childrenFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
+	}
+
+	/**
+	 * This returns Schema.gif.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object getImage(Object object) {
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Schema"));
+	}
+
+	/**
+	 * This returns the label text for the adapted class.
+	 * <!-- begin-user-doc
+	 * --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getText(Object object) {
+		String label = ((Schema)object).getName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_Schema_type") :
+			getString("_UI_Schema_type") + " " + label;
+	}
+
+	/**
+	 * This handles model notifications by calling {@link #updateChildren} to update any cached
+	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
+	 * <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void notifyChanged(Notification notification) {
+		updateChildren(notification);
+
+		switch (notification.getFeatureID(Schema.class)) {
+			case SQL2003Package.SCHEMA__NAME:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case SQL2003Package.SCHEMA__BEHAVIOURAL_COMPONENTS:
+			case SQL2003Package.SCHEMA__DATATYPES:
+			case SQL2003Package.SCHEMA__TABLES:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+				return;
+		}
+		super.notifyChanged(notification);
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	@Override
+	public Collection<?> getChildren(Object object) {
+		ChildrenStore store = getChildrenStore(object);
+		if (store != null) {
+			return store.getChildren();
+		}
+
+		store = createChildrenStore(object);
+		List<Object> result = store != null ? null : new ArrayList<Object>();
+		EObject eObject = (EObject) object;
+
+		for (EStructuralFeature feature : getAnyChildrenFeatures(object)) {
+			if (feature.isMany()) {
+				List<?> children = (List<?>) eObject.eGet(feature);
+				int index = 0;
+				for (Object unwrappedChild : children) {
+					if (!(unwrappedChild instanceof PredefinedTypeImpl))// CUSTOM
+					{
+						//No se muestran los tipos predefinidos
+						Object child = wrap(eObject, feature, unwrappedChild,
+								index);
+						if (store != null) {
+							store.getList(feature).add(child);
+						} else {
+							result.add(child);
+						}
+						index++;
+					}
+				}
+			} else {
+				Object child = eObject.eGet(feature);
+				if (child != null) {
+					child = wrap(eObject, feature, child,
+							CommandParameter.NO_INDEX);
+					if (store != null) {
+						store.setValue(feature, child);
+					} else {
+						result.add(child);
+					}
+				}
+			}
+		}
+		return store != null ? store.getChildren() : result;
+	}
+
+	private Collection<? extends EStructuralFeature> getAnyChildrenFeatures(
+			Object object) {
+		Collection<? extends EStructuralFeature> result = getChildrenFeatures(object);
+		return result.isEmpty() ? getChildrenFeatures(object) : result;
+	}
+
+	/**
+	 * This adds {@link org.eclipse.emf.edit.command.CommandParameter}s
+	 * describing the children that can be created under this object. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	/* (non-Javadoc)
+	 * @see org.eclipse.emf.edit.provider.ItemProviderAdapter#collectNewChildDescriptors(java.util.Collection, java.lang.Object)
+	 */
+	@Override
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
+		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add(createChildParameter(
+				SQL2003Package.Literals.SCHEMA__BEHAVIOURAL_COMPONENTS,
+				SQL2003Factory.eINSTANCE.createFunction()));
+
+		newChildDescriptors.add(createChildParameter(
+				SQL2003Package.Literals.SCHEMA__BEHAVIOURAL_COMPONENTS,
+				SQL2003Factory.eINSTANCE.createProcedure()));
+
+		newChildDescriptors.add(createChildParameter(
+				SQL2003Package.Literals.SCHEMA__DATATYPES,
+				SQL2003Factory.eINSTANCE.createARRAY()));
+
+		// newChildDescriptors.add
+		// (createChildParameter
+		// (SQL2003Package.Literals.SCHEMA__DATATYPES,
+		// SQL2003Factory.eINSTANCE.createBinaryStringType()));
+		//
+		// newChildDescriptors.add
+		// (createChildParameter
+		// (SQL2003Package.Literals.SCHEMA__DATATYPES,
+		// SQL2003Factory.eINSTANCE.createBooleanType()));
+		//
+		// newChildDescriptors.add
+		// (createChildParameter
+		// (SQL2003Package.Literals.SCHEMA__DATATYPES,
+		// SQL2003Factory.eINSTANCE.createCharacterStringType()));
+		//
+		// newChildDescriptors.add
+		// (createChildParameter
+		// (SQL2003Package.Literals.SCHEMA__DATATYPES,
+		// SQL2003Factory.eINSTANCE.createDatetimeType()));
+
+		newChildDescriptors.add(createChildParameter(
+				SQL2003Package.Literals.SCHEMA__DATATYPES,
+				SQL2003Factory.eINSTANCE.createDistinctType()));
+		//
+		// newChildDescriptors.add
+		// (createChildParameter
+		// (SQL2003Package.Literals.SCHEMA__DATATYPES,
+		// SQL2003Factory.eINSTANCE.createIntervalType()));
+
+		newChildDescriptors.add(createChildParameter(
+				SQL2003Package.Literals.SCHEMA__DATATYPES,
+				SQL2003Factory.eINSTANCE.createMULTISET()));
+
+		// newChildDescriptors.add
+		// (createChildParameter
+		// (SQL2003Package.Literals.SCHEMA__DATATYPES,
+		// SQL2003Factory.eINSTANCE.createNumericType()));
+
+		newChildDescriptors.add(createChildParameter(
+				SQL2003Package.Literals.SCHEMA__DATATYPES,
+				SQL2003Factory.eINSTANCE.createROW()));
+
+		newChildDescriptors.add(createChildParameter(
+				SQL2003Package.Literals.SCHEMA__DATATYPES,
+				SQL2003Factory.eINSTANCE.createReferenceType()));
+
+		newChildDescriptors.add(createChildParameter(
+				SQL2003Package.Literals.SCHEMA__DATATYPES,
+				SQL2003Factory.eINSTANCE.createStructuredType()));
+
+		// newChildDescriptors.add
+		// (createChildParameter
+		// (SQL2003Package.Literals.SCHEMA__DATATYPES,
+		// SQL2003Factory.eINSTANCE.createXMLType()));
+
+		newChildDescriptors.add(createChildParameter(
+				SQL2003Package.Literals.SCHEMA__TABLES,
+				SQL2003Factory.eINSTANCE.createDerivedTable()));
+
+		newChildDescriptors.add(createChildParameter(
+				SQL2003Package.Literals.SCHEMA__TABLES,
+				SQL2003Factory.eINSTANCE.createTypedTable()));	
+
+		newChildDescriptors.add(createChildParameter(
+				SQL2003Package.Literals.SCHEMA__TABLES,
+				SQL2003Factory.eINSTANCE.createBaseTable()));	
+		
+		newChildDescriptors.add(createChildParameter(
+				SQL2003Package.Literals.SCHEMA__TABLES,
+				SQL2003Factory.eINSTANCE.createView()));
+	}
+
+	/**
+	 * Return the resource locator for this item provider's resources. <!--
+	 * begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	@Override
+	public ResourceLocator getResourceLocator() {
+		return SQL2003EditPlugin.INSTANCE;
+	}
+
+}

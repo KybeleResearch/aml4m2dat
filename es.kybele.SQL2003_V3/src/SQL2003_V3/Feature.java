@@ -1,0 +1,22 @@
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
+package SQL2003_V3;
+
+import org.eclipse.emf.ecore.EObject;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Feature</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ *
+ * @see SQL2003_V3.SQL2003_V3Package#getFeature()
+ * @model abstract="true"
+ * @generated
+ */
+public interface Feature extends EObject {
+} // Feature

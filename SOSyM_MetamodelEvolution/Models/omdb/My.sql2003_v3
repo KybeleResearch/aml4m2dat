@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SQL2003_V3:Schema xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SQL2003_V3="http://SQL2003_V3.ecore">
+  <datatypes xsi:type="SQL2003_V3:XMLType"/>
+  <datatypes xsi:type="SQL2003_V3:BooleanType"/>
+  <datatypes xsi:type="SQL2003_V3:CharacterStringType"/>
+  <datatypes xsi:type="SQL2003_V3:CharacterStringType" descriptor="CHARACTERVARYING"/>
+  <datatypes xsi:type="SQL2003_V3:CharacterStringType" descriptor="CHARACTERLARGEOBJECT"/>
+  <datatypes xsi:type="SQL2003_V3:DatetimeType"/>
+  <datatypes xsi:type="SQL2003_V3:DatetimeType" descriptor="TIMEWITHTIMEZONE"/>
+  <datatypes xsi:type="SQL2003_V3:DatetimeType" descriptor="TIMEWITHOUTTIMEZONE"/>
+  <datatypes xsi:type="SQL2003_V3:DatetimeType" descriptor="TIMESTAMPWITHOUTTIMEZONE"/>
+  <datatypes xsi:type="SQL2003_V3:DatetimeType" descriptor="TIMESTAMPWITHTIMEZONE"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="DAY_HOUR"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="DAY_MINUTE"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="DAY_SECOND"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="HOUR_MINUTE"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="HOUR_SECOND"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="MINUTE_SECOND"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="YEAR"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="MONTH"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="DAY"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="HOUR"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="MINUTE"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="SECOND"/>
+  <datatypes xsi:type="SQL2003_V3:NumericType"/>
+  <datatypes xsi:type="SQL2003_V3:NumericType" descriptor="DECIMAL"/>
+  <datatypes xsi:type="SQL2003_V3:NumericType" descriptor="SMALLINT"/>
+  <datatypes xsi:type="SQL2003_V3:NumericType" descriptor="INTEGER"/>
+  <datatypes xsi:type="SQL2003_V3:NumericType" descriptor="BIGINT"/>
+  <datatypes xsi:type="SQL2003_V3:NumericType" descriptor="FLOAT"/>
+  <datatypes xsi:type="SQL2003_V3:NumericType" descriptor="REAL"/>
+  <datatypes xsi:type="SQL2003_V3:NumericType" descriptor="DOUBLEPRECISION"/>
+  <datatypes xsi:type="SQL2003_V3:BinaryStringType"/>
+  <datatypes xsi:type="SQL2003_V3:BinaryStringType" descriptor="BINARY"/>
+  <datatypes xsi:type="SQL2003_V3:BinaryStringType" descriptor="BINARYVARYING"/>
+</SQL2003_V3:Schema>

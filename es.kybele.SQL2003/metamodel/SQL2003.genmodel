@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/es.kybele.SQL2003/src"
+    modelPluginID="es.kybele.SQL2003" modelName="SQL2003" testsDirectory="" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>SQL2003.ecore</foreignModel>
+  <genPackages prefix="SQL2003" disposableProviderFactory="true" ecorePackage="SQL2003.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//BinaryStringTypes">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//BinaryStringTypes/BINARYLARGEOBJECT"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//BinaryStringTypes/BINARY"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//BinaryStringTypes/BINARYVARYING"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//BooleanTypes">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//BooleanTypes/BOOLEAN"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//CharacterStringTypes">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//CharacterStringTypes/CHARACTER"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//CharacterStringTypes/CHARACTERVARYING"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//CharacterStringTypes/CHARACTERLARGEOBJECT"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//DatetimeFeatures">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//DatetimeFeatures/precision"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//DatetimeTypes">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//DatetimeTypes/DATE"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//DatetimeTypes/TIMEWITHTIMEZONE"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//DatetimeTypes/TIMEWITHOUTTIMEZONE"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//DatetimeTypes/TIMESTAMPWITHOUTTIMEZONE"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//DatetimeTypes/TIMESTAMPWITHTIMEZONE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//IntervalFeatures">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//IntervalFeatures/start_leading_precision"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//IntervalFeatures/end_leading_precision"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//IntervalFeatures/leading_precision"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//IntervalFeatures/second_precision"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//IntervalTypes">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//IntervalTypes/YEAR_MONTH"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//IntervalTypes/DAY_HOUR"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//IntervalTypes/DAY_MINUTE"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//IntervalTypes/DAY_SECOND"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//IntervalTypes/HOUR_MINUTE"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//IntervalTypes/HOUR_SECOND"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//IntervalTypes/MINUTE_SECOND"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//IntervalTypes/YEAR"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//IntervalTypes/MONTH"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//IntervalTypes/DAY"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//IntervalTypes/HOUR"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//IntervalTypes/MINUTE"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//IntervalTypes/SECOND"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//MatchTypes">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//MatchTypes/SIMPLE"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//MatchTypes/PARTIAL"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//MatchTypes/TOTAL"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//Multiplier">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//Multiplier/K"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//Multiplier/M"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//Multiplier/G"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//Multiplier/T"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//Multiplier/P"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//NumericRadix">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//NumericRadix/DECIMAL"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//NumericRadix/BINARY"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//NumericFeatures">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//NumericFeatures/precision"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//NumericFeatures/scale"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//NumericFeatures/radix"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//NumericTypes">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//NumericTypes/NUMERIC"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//NumericTypes/DECIMAL"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//NumericTypes/SMALLINT"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//NumericTypes/INTEGER"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//NumericTypes/BIGINT"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//NumericTypes/FLOAT"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//NumericTypes/REAL"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//NumericTypes/DOUBLEPRECISION"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//ParameterMode">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//ParameterMode/IN"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//ParameterMode/OUT"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//ParameterMode/INOUT"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//ReferentialAction">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//ReferentialAction/CASCADE"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//ReferentialAction/SET_NULL"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//ReferentialAction/RESTRICT"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//ReferentialAction/NO_ACTION"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//ReferentialAction/SET_DEFAULT"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//StringFeatures">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//StringFeatures/length"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//StringFeatures/unit"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//StringFeatures/multiplier"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//TriggerActionTime">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//TriggerActionTime/BEFORE"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//TriggerActionTime/AFTER"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//TriggerEvent">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//TriggerEvent/INSERT"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//TriggerEvent/DELETE"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//TriggerEvent/UPDATE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//Unit">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//Unit/CHARACTERS"/>
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//Unit/OCTETS"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="SQL2003.ecore#//XMLTypes">
+      <genEnumLiterals ecoreEnumLiteral="SQL2003.ecore#//XMLTypes/XMLTYPE"/>
+    </genEnums>
+    <genClasses ecoreClass="SQL2003.ecore#//ARRAY">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//ARRAY/num_elements"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//Attribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//Attribute/default"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference SQL2003.ecore#//Attribute/structured"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//BaseTable"/>
+    <genClasses image="false" ecoreClass="SQL2003.ecore#//BehaviouralComponent">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference SQL2003.ecore#//BehaviouralComponent/schema"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//BehaviouralComponent/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//BehaviouralComponent/body"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SQL2003.ecore#//BehaviouralComponent/parametersWithMode"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//BinaryStringType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//BinaryStringType/descriptor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//BinaryStringType/length_def"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//BooleanType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//BooleanType/descriptor"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//CharacterStringType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//CharacterStringType/descriptor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//CharacterStringType/length_def"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="SQL2003.ecore#//CollectionType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//CollectionType/super_type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//CollectionType/type"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//Column">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//Column/default"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference SQL2003.ecore#//Column/table"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="SQL2003.ecore#//ColumnConstraint"/>
+    <genClasses image="false" ecoreClass="SQL2003.ecore#//ConstructedType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//ConstructedType/name"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="SQL2003.ecore#//DataType">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference SQL2003.ecore#//DataType/schema"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//DatetimeFeature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//DatetimeFeature/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//DatetimeFeature/value"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//DatetimeType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//DatetimeType/descriptor"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//DerivedTable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//DerivedTable/query_expression"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//DistinctType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//DistinctType/source_type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SQL2003.ecore#//DistinctType/features"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="SQL2003.ecore#//Feature"/>
+    <genClasses ecoreClass="SQL2003.ecore#//Field">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference SQL2003.ecore#//Field/row"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//Function">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//Function/return_type"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//IntervalFeature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//IntervalFeature/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//IntervalFeature/value"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//IntervalType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//IntervalType/descriptor"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//MULTISET"/>
+    <genClasses ecoreClass="SQL2003.ecore#//Method">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//Method/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//Method/body"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//Method/override"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference SQL2003.ecore#//Method/structured"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//Method/return_type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SQL2003.ecore#//Method/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//MethodParameter">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference SQL2003.ecore#//MethodParameter/method"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//NotNull"/>
+    <genClasses ecoreClass="SQL2003.ecore#//NumericFeature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//NumericFeature/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//NumericFeature/value"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//NumericType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//NumericType/descriptor"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="SQL2003.ecore#//Parameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//Parameter/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//Parameter/type"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//ParameterWithMode">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//ParameterWithMode/mode"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference SQL2003.ecore#//ParameterWithMode/behaviouralComponent"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="SQL2003.ecore#//PredefinedType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//PredefinedType/is_source_of"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//PrimaryKey"/>
+    <genClasses ecoreClass="SQL2003.ecore#//Procedure"/>
+    <genClasses ecoreClass="SQL2003.ecore#//ROW">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//ROW/super_type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SQL2003.ecore#//ROW/fields"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//ROW/sub_types"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//ReferenceType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//ReferenceType/type"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//ReferentialConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//ReferentialConstraint/delete_action"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//ReferentialConstraint/update_action"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//ReferentialConstraint/match"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//ReferentialConstraint/references"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="SQL2003.ecore#//Restriction">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference SQL2003.ecore#//Restriction/table"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//Restriction/columns"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//Schema">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//Schema/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SQL2003.ecore#//Schema/behaviouralComponents"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SQL2003.ecore#//Schema/datatypes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SQL2003.ecore#//Schema/tables"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//StringFeature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//StringFeature/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//StringFeature/value"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="SQL2003.ecore#//StructuralComponent">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//StructuralComponent/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//StructuralComponent/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//StructuralComponent/views"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//StructuralComponent/restrictions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SQL2003.ecore#//StructuralComponent/features"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//StructuredType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//StructuredType/is_final"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//StructuredType/is_instantiable"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//StructuredType/super_type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SQL2003.ecore#//StructuredType/attributes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SQL2003.ecore#//StructuredType/methods"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//StructuredType/typed"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="SQL2003.ecore#//Table">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference SQL2003.ecore#//Table/schema"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SQL2003.ecore#//Table/columns"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//Table/views"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SQL2003.ecore#//Table/triggers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference SQL2003.ecore#//Table/restrictions"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//Table/name"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//TableCheckConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//TableCheckConstraint/expression"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="SQL2003.ecore#//TableConstraint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//TableConstraint/name"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//Trigger">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//Trigger/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//Trigger/event"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//Trigger/actionTime"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference SQL2003.ecore#//Trigger/table"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//Trigger/triggeredAction"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//Trigger/updateColumns"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//TypedTable">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//TypedTable/structured"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//TypedTable/supertable"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//TypedTable/subtables"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//UniqueConstraint"/>
+    <genClasses image="false" ecoreClass="SQL2003.ecore#//UserDefinedType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//UserDefinedType/name"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//View">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//View/tables"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference SQL2003.ecore#//View/components"/>
+    </genClasses>
+    <genClasses ecoreClass="SQL2003.ecore#//XMLType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute SQL2003.ecore#//XMLType/descriptor"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

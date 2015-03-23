@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+
+  <extension
+    point = "org.eclipse.ui.newWizards">
+    <category
+      id = "org.eclipse.emf.ecore.Wizard.category.ID"
+      name="%_UI_Wizard_category">
+    </category>
+    <wizard
+      id = "ORDB4ORA.presentation.ORDB4ORAModelWizardID"
+      name = "%_UI_ORDB4ORAModelWizard_label"
+      class = "ORDB4ORA.presentation.ORDB4ORAModelWizard"
+      category = "org.eclipse.emf.ecore.Wizard.category.ID"
+      icon = "icons/full/obj16/ORDB4ORAModelFile.gif">
+      <description>%_UI_ORDB4ORAModelWizard_description</description>
+      <selection class = "org.eclipse.core.resources.IResource" />
+    </wizard>
+  </extension>
+
+  <extension point = "org.eclipse.ui.editors">
+    <editor
+        id = "ORDB4ORA.presentation.ORDB4ORAEditorID"
+        name = "%_UI_ORDB4ORAEditor_label"
+        icon = "icons/full/obj16/ORDB4ORAModelFile.gif"
+        extensions = "ordb4ora"
+        class = "ORDB4ORA.presentation.ORDB4ORAEditor" 
+        contributorClass="ORDB4ORA.presentation.ORDB4ORAActionBarContributor" >
+    </editor>
+  </extension>    
+</plugin>

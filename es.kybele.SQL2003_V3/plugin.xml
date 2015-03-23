@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <package
+            uri="http://SQL2003_V3.ecore"
+            class="SQL2003_V3.SQL2003_V3Package"
+            genModel="Metamodel/SQL2003_V3.genmodel"/>
+   </extension>
+
+</plugin>

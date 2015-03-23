@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: ORDB4ORA; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-ClassPath: .
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: ORDB4ORA,
+ ORDB4ORA.impl,
+ ORDB4ORA.util
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.emf.validation;bundle-version="1.2.0",
+ org.eclipse.epsilon.evl.emf.validation;bundle-version="0.8.4",
+ org.eclipse.ui.ide;bundle-version="3.4.0"

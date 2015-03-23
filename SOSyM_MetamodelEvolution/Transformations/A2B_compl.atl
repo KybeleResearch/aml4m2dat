@@ -1,0 +1,52 @@
+module A2B_compl;
+create OUT : newB refining IN1:newB, IN2:newA, IN3:A, IN4:B, W_AB : AMW;
+
+helper def : elementCorrespondingTo (element:OclAny) : OclAny = 
+	let traceLink:OclAny = AMW!TraceLink->allInstancesFrom('W_AB')
+											->select(e | e.targetElements->first().element.ref = element.__xmiID__)
+											->first() in
+				if traceLink.oclIsUndefined() then
+					OclUndefined
+				else
+					traceLink.sourceElements->first().element.ref
+				endif;
+										
+--helper def : typedTables (xmiID : String) : OclAny =
+--	newA!TypedTable->allInstancesFrom('IN2')->select(e | e.__xmiID__ = xmiID)
+--										->first();
+
+--helper context newB!TypedTable def : getDomainConstraint : OclAny =
+--	let corresponding : OclAny = thisModule.corresponding(self) in
+--	if corresponding.oclIsUndefined() then
+--		Sequence{}
+--	else
+--					corresponding.restrictions
+--		 			->select(e | e.oclIsTypeOf(newA!DomainConstraint))
+--	endif;
+
+-- rule for motivating example
+--rule rule2 {
+--	from
+--		s : newB!TypedTable (s.getDomainConstraint.notEmpty())	
+--	to
+--	  t : newB!TypedTable ( --ORA
+--	  	restriction <- s.restriction.append(newCheck)
+--	  )
+--	  ,
+--	  newCheck : newB!Check (
+--	  	 name <- s.getDomainConstraint->first().name
+--	  )
+--}
+
+helper def : getElement(xmiID : String) : OclAny =
+	newA!Attribute->allInstancesFrom('IN2')->select(e | e.__xmiID__ = xmiID)
+										->first();
+
+rule Attribute {
+	from
+		s : newB!Attribute	
+	to
+	  t : newB!Attribute ( 
+	  	Default <- thisModule.getElement(thisModule.elementCorrespondingTo(s)).default
+	  )
+}

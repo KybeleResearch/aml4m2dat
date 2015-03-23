@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="SQL2003_evo.presentation.SQL2003_evoModelWizardID"
+            name="%_UI_SQL2003_evoModelWizard_label"
+            class="SQL2003_evo.presentation.SQL2003_evoModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/SQL2003_evoModelFile.gif">
+         <description>%_UI_SQL2003_evoModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="SQL2003_evo.presentation.SQL2003_evoEditorID"
+            name="%_UI_SQL2003_evoEditor_label"
+            icon="icons/full/obj16/SQL2003_evoModelFile.gif"
+            extensions="sql2003_evo"
+            class="SQL2003_evo.presentation.SQL2003_evoEditor"
+            contributorClass="SQL2003_evo.presentation.SQL2003_evoActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

@@ -1,0 +1,18 @@
+Personalizacion de plugin generado por EMF
+
+Inclusión de tipos primitivos de datos de manera automática
+--Realizado en Editor.ORDB4ORAModelWizard.performFinish()
+
+Modificar el método getText() de algunas EClass (Method)
+--agregado friendlyName y modificado getText de MethodItemProvider en edit.provider
+
+Quitar del menú la instanciación de tipos primitivos (New Child) en Editor TreeView
+--comentado en Edit.ModelItemProvider.collectNewChildDescriptors() para que no se agregue en el menu
+
+Tipos Primitivos instanciados, no visibles en TreeView Editor
+--se ha sobreescrito el método:Collection<?> getChildren(Object object) se ha agregado un if para
+--que no se agreguen EObject de tipo BasicDataTypeImpl. El código es igual al del método que se
+--sobreescribe solo con este cambio.
+
+Eleccion automática de la raiz al crear un modelo
+-- se selecciona en el combo el elemento raiz, en Editor.ORDB4ORAModelWizard.createControl()

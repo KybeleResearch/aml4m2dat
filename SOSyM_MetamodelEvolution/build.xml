@@ -1,0 +1,106 @@
+<project name="SoSym" default="A2B_compl">	
+	
+	
+	<property name="transfo" value="Transformations/SQL20032ORA.atl"></property>
+	<target name = 'HOT'>
+	    <atl.loadModel name = 'ATL' metamodel = '%EMF' path = '../Adaptation/Metamodels/ATL.ecore'/>
+		<atl.loadModel name = 'atlModel' metamodel = 'ATL' path = '${transfo}.xmi'/>
+		<atl.launch path="../ATL2WTracer3_2/myATL2WTracer.asm">
+			<inmodel name="IN" model="atlModel" />
+			<outmodel name="OUT" metamodel="ATL" model="output"/>
+	</atl.launch>
+	
+	
+    <atl.saveModel model = 'output' path = 'Transformations/SQL20032ORA_trace.atl'>
+      <extractor name = 'ATL'/>
+    </atl.saveModel>
+		
+  </target>
+	
+	<target name="loadMetamodels">
+		<atl.loadModel name="SQL2003" metamodel='%EMF' path='Metamodels/SQL2003.ecore'></atl.loadModel>
+				<atl.loadModel name="ORDB4ORA" metamodel="%EMF" path="Metamodels/ORDB4ORA.ecore"/>
+		<atl.loadModel name="SQL2003_evo" metamodel='%EMF' path='Metamodels/SQL2003_evo.ecore'></atl.loadModel>
+		<atl.loadModel name="Trace" metamodel="%EMF" path="../ATL2WTracer3_2/mmw_traceability.ecore"/>
+				
+	</target>
+	
+	<target name="loadModels" depends="loadMetamodels">
+		<atl.loadModel name="IN" metamodel="SQL2003_evo" path="Models/omdb/omdb.sql2003_evo"/>
+		
+	</target>	
+	
+	
+	<target name="alpha" depends="loadModels">
+			<atl.launch path="..\SQL2003_Adaptation\EqualModels\flat\SQL2003\rw.amw.atl">
+				<inmodel name="IN" model="IN" metamodelName="leftSQL2003"/>
+				<outmodel name="OUT" model="out_alpha" metamodel="SQL2003_evo" metamodelName="rightSQL2003_evo"/>
+			</atl.launch>
+			<atl.saveModel model="out_alpha" path="Models/out_alpha.xmi"></atl.saveModel>
+		</target>
+	
+	<target name="alpha_prime" depends="loadModels">
+		<atl.launch path="..\SQL2003_Adaptation\EqualModels\inverse\flat\SQL2003\rw.amw.atl">
+			<inmodel name="IN" model="IN" metamodelName="leftSQL2003_evo"/>
+			<outmodel name="OUT" model="out_alpha_prime" metamodel="SQL2003" metamodelName="rightSQL2003"/>
+		</atl.launch>
+		<atl.saveModel model="out_alpha_prime" path="Models/out_alpha_prime.xmi"></atl.saveModel>
+	</target>
+	
+	<target name="A2B_trace" depends="alpha_prime">
+				
+ 		
+		<atl.launch path="Transformations/SQL20032ORA_trace_manual.asm">
+			<inmodel name="IN" model="out_alpha_prime"/>
+			<outmodel name="OUT" model="out1_A2B_trace" metamodel="ORDB4ORA"/>
+			<outmodel name="trace" model="out2_A2B_trace" metamodel="Trace"/>
+		</atl.launch>
+		
+		<atl.saveModel model="out1_A2B_trace" path="Models/omdb.ordb"></atl.saveModel>
+		<atl.saveModel model="out2_A2B_trace" path="Models/sql20032ordb_trace.amw"></atl.saveModel>
+		
+	</target>
+	
+	
+<target name="A2B_compl" depends="alpha_prime">
+	<!--
+	create OUT : newB refining IN:newB, IN2:newA, IN3:A, IN4:B, W_AB : AMW;
+	-->
+	<!--
+	<atl.loadModel name="B" metamodel="%EMF" path="ORDB4ORA.ecore"></atl.loadModel>
+	
+	<atl.loadModel name="newB" metamodel="%EMF" path="evo_B.ecore"></atl.loadModel>
+	
+	<atl.loadModel name="A" metamodel="%EMF" path="A.ecore"></atl.loadModel>
+	<atl.loadModel name="newA" metamodel="%EMF" path="evo_A.ecore"></atl.loadModel>
+	<atl.loadModel name="AMW" metamodel="%EMF" path="../ATL2WTracer3_2/mmw_traceability.ecore"></atl.loadModel>
+	
+	<atl.loadModel name="IN1" metamodel="B" path="model_evo_B.xmi"></atl.loadModel>
+	<atl.loadModel name="IN2" metamodel="newA" path="model_evo_A.xmi"></atl.loadModel>
+	<atl.loadModel name="IN3" metamodel="A" path="model_A.xmi"></atl.loadModel>
+	<atl.loadModel name="IN4" metamodel="A" path="model_B.xmi"></atl.loadModel>
+	<atl.loadModel name="W_AB" metamodel="AMW" path="model_A_trace_model_B.xmi"></atl.loadModel>
+	-->	
+	
+	<atl.loadModel name="out1_A2B_trace" path="Models/omdb.ordb" metamodel="ORDB4ORA"/>
+	<atl.loadModel name="out2_A2B_trace" path="Models/sql20032ordb_trace.amw" metamodel="Trace"/>
+	
+	<atl.launch path = 'Transformations/A2B_compl.asm' refining="true">
+		<inoutmodel name="IN1" model="out1_A2B_trace" metamodelName="newB"/>
+		<inmodel name="IN2" model="IN" metamodelName="newA"/>
+	      <inmodel name="IN3" model="out_alpha_prime" metamodelName="A"/>
+		<inmodel name="IN4" model="out1_A2B_trace" metamodelName="B"/>
+		<inmodel name="W_AB" model="out2_A2B_trace" metamodelName="AMW"/>
+		  <option name = 'extensions' value = 'match.AmwModelHandler,'/>
+		   <option name = 'extraClasspath' value = '../AMLLibrary/bin/,'/>
+		      <option name = 'user.dir' value = '${basedir}'/>
+		      <option name = 'amwModelMappings' value = 'IN=IN3,OUT=IN4'/>
+		     
+	 </atl.launch>
+	
+	 <atl.saveModel model = 'out1_A2B_trace' path = 'Models/out_gamma.xmi'/>
+	
+</target>	
+	
+	
+	</project>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="SQL2003_V2.presentation.SQL2003_V2ModelWizardID"
+            name="%_UI_SQL2003_V2ModelWizard_label"
+            class="SQL2003_V2.presentation.SQL2003_V2ModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/SQL2003_V2ModelFile.gif">
+         <description>%_UI_SQL2003_V2ModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="SQL2003_V2.presentation.SQL2003_V2EditorID"
+            name="%_UI_SQL2003_V2Editor_label"
+            icon="icons/full/obj16/SQL2003_V2ModelFile.gif"
+            extensions="sql2003_v2"
+            class="SQL2003_V2.presentation.SQL2003_V2Editor"
+            contributorClass="SQL2003_V2.presentation.SQL2003_V2ActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

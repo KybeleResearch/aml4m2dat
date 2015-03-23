@@ -1,0 +1,1402 @@
+-- @name 		ORDB4ORA
+-- @version		1.0
+-- @domains		database, dsl, ordb4ora, transformation, metamodel, model
+-- @authors		Emanuel (Universidad Rey Juan Carlos)
+-- @date       	01-05-2009
+-- @description	Restricciones aplicadas al metamodelo de ORDB4ORA.
+
+context Model {
+
+	-- El nombre de un modelo es obligatorio y no puede estar vacío
+	constraint notEmptyModelName {
+		check : self.Name.isDefined()
+		message : getMessageNotEmptyName('Model')
+		fix {
+     		title : getTitleNotEmptyName('Model')
+     		do {
+    			self.Name := getInputNotEmptyName('Model'); 
+     		}
+    	}
+    }
+    
+	-- El nombre de un modelo no puede estar vacío
+	-- y debe empezar por una letra, seguido de letras, números,
+	-- guiones o guiones bajos.
+	constraint validModelName {
+		guard : self.satisfies('notEmptyModelName')
+		check : self.Name.isValidName()
+		message : getMessageValidName('Model')
+		fix {
+     		title : getTitleValidName('Model', self.Name)
+     		do {
+    			self.name := getInputValidName('Model', self.Name); 
+     		}
+    	}
+    }
+}
+
+
+context StructuredType {
+
+-- El nombre de un StructuredType es obligatorio y no puede estar vacío
+	constraint notEmptyStructuredTypeName {
+		check : self.Name.isDefined()
+		message : getMessageNotEmptyName('StructuredType')
+		fix {
+     		title : getTitleNotEmptyName('StructuredType')
+     		do {
+    			self.Name := getInputNotEmptyName('StructuredType'); 
+     		}
+    	}
+    }
+    
+	-- El nombre de un StructuredType no puede estar vacío
+	-- y debe empezar por una letra, seguido de letras, números,
+	-- guiones o guiones bajos.
+	constraint validStructuredTypeName {
+		guard : self.satisfies('notEmptyStructuredTypeName')
+		check : self.Name.isValidName()
+		message : getMessageValidName('StructuredType')
+		fix {
+     		title : getTitleValidName('StructuredType', self.Name)
+     		do {
+    			self.name := getInputValidName('StructuredType', self.Name); 
+     		}
+    	}
+    }
+
+constraint UniqueName {
+   	guard : self.satisfies('validStructuredTypeName')
+    check : self.model.datatype->select(p|p.isTypeOf(StructuredType))->select(s|s.Name = self.Name)->size() = 1
+    message : 'UDT Name should be unique'
+    fix{
+    title: self.Name + ' -> Choose other Name'
+     	do {
+ 				 self.Name :=UserInput.prompt('Choose other Name', self.Name);
+     		}
+    }
+    }
+
+  constraint CantSelfInherit {
+   
+   guard : self.satisfies('UniqueName')
+    check : self.supertype <> self
+    message : 'UDT can`t inherit from itself'
+    fix {
+     	title: self.Name + ' -> Choose other supertype'
+     	do {
+    	self.supertype := UserInput.choose('Choose an UDT',self.model.datatype->select(udt|udt.isTypeOf(StructuredType)),self); 
+     		}
+    	}
+    }
+    
+    -- Si un tipo estructurado es abstracto (no instanciable) no puede haber
+	-- tablas en el esquema basadas en él
+  	constraint abstractStructuredType {
+  		guard : self.satisfies('CantSelfInherit') and not self.is_instantiable
+	    check : self.typed.size() = 0
+	    message : 'The abstract UDT "' + self.Name + 
+	    		  '" should not generate any typed table'
+	    fix {
+	     	title: 'Delete all typed table references in UDT: ' + self.Name
+	     	do {
+	    		if (UserInput.confirm('Are you sure you want to delete all typed ' + 
+	    			'table references in UDT "' + self.Name + '"?'))
+	    		{
+	    			self.typed.clear();
+	    		} 
+	     	}
+	   	}
+	}
+
+	-- Si un tipo estructurado es hoja (final) no puede haber
+	-- otros tipos estructurados que hereden de él
+  	constraint finalStructuredType {
+  		guard : self.satisfies('CantSelfInherit') and self.is_final
+	    check : self.model.datatype->
+	    			select(dt | dt.isTypeOf(StructuredType) and (dt <> self))->
+						select(st | st.supertype = self)->size() = 0
+	    message : 'The final UDT "' + self.Name + '" should not have subtypes UDT'
+	   	}
+}
+
+context StructuralComponent {
+
+    -- El nombre de un Structural Component es obligatorio y no puede estar vacío
+	constraint notEmptyStructuralComponentName {
+		check : self.Name.isDefined()
+		message : getMessageNotEmptyName('StructuralComponent')
+		fix {
+     		title : getTitleNotEmptyName('StructuralComponent')
+     		do {
+    			self.Name := getInputNotEmptyName('StructuralComponent'); 
+     		}
+    	}
+    }
+    
+	-- El nombre de un Structural Component no puede estar vacío
+	-- y debe empezar por una letra, seguido de letras, números,
+	-- guiones o guiones bajos.
+	constraint validStructuralComponentName {
+		guard : self.satisfies('notEmptyStructuralComponentName')
+		check : self.Name.isValidName()
+		message : getMessageValidName('StructuralComponent')
+		fix {
+     		title : getTitleValidName('StructuralComponent', self.Name)
+     		do {
+    			self.Name := getInputValidName('StructuralComponent', self.Name); 
+     		}
+    	}
+    }
+    
+	-- El tipo de un StructuralComponent debe estar definido 
+ 	constraint notEmptyStructuralComponentType {
+ 		guard : self.satisfies('validStructuralComponentName')
+		check : self.Type.isDefined()
+	    message : 'The type of the StructuralComponent "' + self.Name + 
+	    		  '" should be defined'
+	}
+
+  constraint OnlyCharacterFeature {
+    guard: self.satisfies('notEmptyStructuralComponentType') and (self.Type.isTypeOf(BuiltInCharacterType) or self.Type.isTypeOf(ANSICharacterType)) 
+    check : self.features->select(f|f.isTypeOf(CharacterFeature))->size() = self.features->size() 
+    message : self.Name + ' -> The  attribute, column or field should have only CharacterFeatures'
+    
+  }
+  constraint OnlyNumberFeature {
+    guard: self.satisfies('notEmptyStructuralComponentType') and (self.Type.isTypeOf(ANSINumberType)or self.Type.isTypeOf(BuiltInNumberType)) 
+    check : self.features->select(f|f.isTypeOf(NumberFeature))->size() = self.features->size() 
+    message : self.Name + ' -> The  attribute, column or field should have only NumberFeatures'
+    
+  }
+  constraint OnlyDatetimeFeature {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.Type.isTypeOf(DatetimeType) and self.Type.Descriptor.asString()<>'INTERVALYEARTOMONTH'  and self.Type.Descriptor.asString()<>'INTERVALDAYTOSECOND' 
+    check : self.features->select(f|f.isTypeOf(DatetimeFeature))->size() = self.features->size() 
+    message : self.Name + ' -> The  attribute, column or field should have only DatetimeFeatures'
+    
+  }
+    constraint OnlyIntervalFeature {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.Type.isTypeOf(DatetimeType) and (self.Type.Descriptor.asString()='INTERVALYEARTOMONTH'  or self.Type.Descriptor.asString()='INTERVALDAYTOSECOND') 
+    check : self.features->select(f|f.isTypeOf(IntervalFeature))->size() = self.features->size() 
+    message : self.Name + ' -> The  attribute, column or field should have only IntervalFeatures'
+    
+  }
+    constraint OnlyRawFeature {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.Type.isTypeOf(LongAndRawType) 
+    check : self.features->select(f|f.isTypeOf(RawFeature))->size() = self.features->size() 
+    message : self.Name + ' -> The  attribute, column or field should have only RawFeatures'
+    
+  }
+  constraint OnlyRowFeature {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.Type.isTypeOf(ROWIDType) 
+    check : self.features->select(f|f.isTypeOf(RowFeature))->size() = self.features->size() 
+    message : self.Name + ' -> The  attribute, column or field should have only RowFeatures'
+    
+  }
+  
+  constraint AllowedCHARFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyCharacterFeature')  and self.Type.isTypeOf(BuiltInCharacterType) and self.Type.Descriptor.asString()='CHAR' 
+    check : self.features->select(f|f.key.asString()='size' or f.key.asString()='semantic')->size() = self.features->size()
+    message : self.Name + ' -> The  attribute, column or field should have only the feature: size, semantic'
+    
+  }
+  
+  constraint AllowedCHARMaxSize {
+    guard: self.satisfies('notEmptyStructuralComponentType')and self.Type.isTypeOf(BuiltInCharacterType) and self.Type.Descriptor.asString()='CHAR' and self.features->exists(f|f.key.asString()='size') 
+    check {
+    		var size:Integer :=self.features->select(f|f.key.asString()='size')->first().value.asInteger();
+    		
+    		return size<=2000 and size>=1;
+    		}
+    message : self.Name + ' -> The associated feature size should have the value between 1 and 2000'
+    
+  }
+  
+  constraint AllowedVARCHAR2Features {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyCharacterFeature')  and self.Type.isTypeOf(BuiltInCharacterType) and self.Type.Descriptor.asString()='VARCHAR2' 
+    check : self.features->exists(f|f.key.asString()='size')
+    message : self.Name + ' -> The  attribute, column or field of type VARCHAR2 should have the feature: size'
+    
+  }
+  
+    constraint AllowedVARCHAR2MaxSize {
+    guard: self.satisfies('notEmptyStructuralComponentType')and self.Type.isTypeOf(BuiltInCharacterType) and self.Type.Descriptor.asString()='VARCHAR2' and self.features->exists(f|f.key.asString()='size') 
+    check {
+    		var size:Integer :=self.features->select(f|f.key.asString()='size')->first().value.asInteger();
+    		
+    		return size<=4000 and size>=1;
+    		}
+    message : self.Name + ' -> The associated feature size should have the value between 1 and 4000.'
+    
+  }
+  
+   constraint AllowedNCHARFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyCharacterFeature')  and self.Type.isTypeOf(BuiltInCharacterType) and self.Type.Descriptor.asString()='NCHAR' 
+    check : self.features->select(f|f.key.asString()='size')->size() = self.features->size()
+    message : self.Name + ' -> The  attribute, column or field of type NCHAR should have only the feature: size'
+    
+  }
+  
+   constraint AllowedNCHARMaxSize {
+    guard: self.satisfies('notEmptyStructuralComponentType')and self.Type.isTypeOf(BuiltInCharacterType) and self.Type.Descriptor.asString()='NCHAR' and self.features->exists(f|f.key.asString()='size') 
+    check {
+    		var size:Integer :=self.features->select(f|f.key.asString()='size')->first().value.asInteger();
+    		
+    		return size<=2000 and size>=1;
+    		}
+    message : self.Name + ' -> The associated feature size should have the value between 1 and 2000'
+    
+  }
+  
+  constraint AllowedNVARCHAR2Features {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyCharacterFeature')  and self.Type.isTypeOf(BuiltInCharacterType) and self.Type.Descriptor.asString()='NVARCHAR2' 
+    check : self.features->exists(f|f.key.asString()='size')
+    message : self.Name + ' -> The  attribute, column or field of type NVARCHAR2 should have the feature: size'
+    
+  }
+  
+  
+    constraint AllowedNVARCHAR2MaxSize {
+    guard: self.satisfies('notEmptyStructuralComponentType')and self.Type.isTypeOf(BuiltInCharacterType) and self.Type.Descriptor.asString()='NVARCHAR2' and self.features->exists(f|f.key.asString()='size') 
+    check {
+    		var size:Integer :=self.features->select(f|f.key.asString()='size')->first().value.asInteger();
+    		
+    		return size<=4000 and size>=1;
+    		}
+    message : self.Name + ' -> The associated feature size should have the value between 1 and 4000'
+    
+  }
+  
+   constraint AllowedNUMBERFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyNumberFeature')  and self.Type.isTypeOf(BuiltInNumberType) and self.Type.Descriptor.asString()='NUMBER' 
+    check : self.features->select(f|f.key.asString()='scale' or f.key.asString()='precision')->size() = self.features->size()
+    message : self.Name + ' -> The  attribute, column or field of type NUMBER should have only the feature: precision, scale'
+    
+  }
+  
+  constraint AllowedNUMBERPrecision {
+    guard: self.satisfies('notEmptyStructuralComponentType')and self.Type.isTypeOf(BuiltInNumberType) and self.Type.Descriptor.asString()='NUMBER' and self.features->exists(f|f.key.asString()='precision') 
+    check {
+    		var size:Integer :=self.features->select(f|f.key.asString()='precision')->first().value.asInteger();
+    		
+    		return size<=38 and size>=1;
+    		}
+    message : self.Name + ' -> The associated feature precision should have the value between 1 and 38'
+    
+  }
+  
+    constraint AllowedNUMBERScale {
+    guard: self.satisfies('notEmptyStructuralComponentType')and self.Type.isTypeOf(BuiltInNumberType) and self.Type.Descriptor.asString()='NUMBER' and self.features->exists(f|f.key.asString()='scale') 
+    check {
+    		var size:Integer :=self.features->select(f|f.key.asString()='scale')->first().value.asInteger();
+    		
+    		return size<=127 and size>=-84;
+    		}
+    message : self.Name + ' -> The associated feature precision should have the value between -84 and 127'
+    
+  }
+  constraint AllowedBinaryFloatFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyNumberFeature')  and self.Type.isTypeOf(BuiltInNumberType) and self.Type.Descriptor.asString()='BINARY_FLOAT' 
+    check : self.features->size()=0
+    message : self.Name + ' -> The  attribute, column or field of type BINARY FLOAT should not have features'
+    
+  }
+  
+  constraint AllowedBinaryDoubleFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyNumberFeature')  and self.Type.isTypeOf(BuiltInNumberType) and self.Type.Descriptor.asString()='BINARY_DOUBLE' 
+    check : self.features->size()=0
+    message : self.Name + ' -> The  attribute, column or field of type BINARY DOUBLE should not have features'
+    
+  }
+  
+    constraint AllowedLONGFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyRawFeature')  and self.Type.isTypeOf(LongAndRawType) and self.Type.Descriptor.asString()='LONG' 
+    check : self.features->size()=0
+    message : self.Name + ' -> The  attribute, column or field of type LONG should not have features'
+    
+  }
+  
+  constraint AllowedLONGRAWFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyRawFeature')  and self.Type.isTypeOf(LongAndRawType) and self.Type.Descriptor.asString()='LONGRAW' 
+    check : self.features->size()=0
+    message : self.Name + ' -> The  attribute, column or field of type LONGRAW should not have features'
+    
+  }
+  
+   constraint AllowedRAWFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyRawFeature')  and self.Type.isTypeOf(LongAndRawType) and self.Type.Descriptor.asString()='RAW' 
+    check : self.features->select(f|f.key.asString()='size')->size() = self.features->size()
+    message : self.Name + ' -> The  attribute, column or field of type RAW should have only the feature: size'
+    
+  }
+  
+    constraint AllowedRAWMaxSize {
+    guard: self.satisfies('notEmptyStructuralComponentType')and self.Type.isTypeOf(LongAndRawType) and self.Type.Descriptor.asString()='RAW' and self.features->exists(f|f.key.asString()='size') 
+    check {
+    		var size:Integer :=self.features->select(f|f.key.asString()='size')->first().value.asInteger();
+    		
+    		return size<=2000 and size>=1;
+    		}
+    message : self.Name + ' -> The associated feature size should have the value between 1 and 2000'
+    
+  }
+  
+  constraint AllowedTIMESTAMPFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyDatetimeFeature')  and self.Type.isTypeOf(DatetimeType) and self.Type.Descriptor.asString()='TIMESTAMP' 
+    check : self.features->select(f|f.key.asString()='precision')->size() = self.features->size()
+    message : self.Name + ' -> The  attribute, column or field of type TIMESTAMP should have only the feature: precision'    
+  }
+  
+  constraint AllowedTIMESTAMPPrecision {
+    guard: self.satisfies('notEmptyStructuralComponentType')and self.Type.isTypeOf(DatetimeType) and self.Type.Descriptor.asString()='TIMESTAMP' and self.features->exists(f|f.key.asString()='precision') 
+    check {
+    		var size:Integer :=self.features->select(f|f.key.asString()='precision')->first().value.asInteger();
+    		
+    		return size<=9 and size>=0;
+    		}
+    message : self.Name + ' -> The associated feature precision should have the value between 0 and 9'
+    
+  }
+  
+  
+  constraint AllowedTIMESTAMPWITHLOCALTIMEZONEFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyDatetimeFeature')  and self.Type.isTypeOf(DatetimeType) and self.Type.Descriptor.asString()='TIMESTAMPWITHLOCALTIMEZONE' 
+    check : self.features->select(f|f.key.asString()='precision')->size() = self.features->size()
+    message : self.Name + ' -> The  attribute, column or field of type TIMESTAMPWITHLOCALTIMEZONE should have only the feature: precision'    
+  }
+  
+  constraint AllowedTIMESTAMPWITHLOCALTIMEZONEPrecision {
+    guard: self.satisfies('notEmptyStructuralComponentType')and self.Type.isTypeOf(DatetimeType) and self.Type.Descriptor.asString()='TIMESTAMPWITHLOCALTIMEZONE' and self.features->exists(f|f.key.asString()='precision') 
+    check {
+    		var size:Integer :=self.features->select(f|f.key.asString()='precision')->first().value.asInteger();
+    		
+    		return size<=9 and size>=0;
+    		}
+    message : self.Name + ' -> The associated feature precision should have the value between 0 and 9'
+    
+  }
+  
+  constraint AllowedTIMESTAMPWITHTIMEZONEFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyDatetimeFeature')  and self.Type.isTypeOf(DatetimeType) and self.Type.Descriptor.asString()='TIMESTAMPWITHTIMEZONE' 
+    check : self.features->select(f|f.key.asString()='precision')->size() = self.features->size()
+    message : self.Name + ' -> The  attribute, column or field of type TIMESTAMPWITHTIMEZONE should have only the feature: precision'    
+  }
+  
+  constraint AllowedTIMESTAMPWITHTIMEZONEPrecision {
+    guard: self.satisfies('notEmptyStructuralComponentType')and self.Type.isTypeOf(DatetimeType) and self.Type.Descriptor.asString()='TIMESTAMPWITHTIMEZONE' and self.features->exists(f|f.key.asString()='precision') 
+    check {
+    		var size:Integer :=self.features->select(f|f.key.asString()='precision')->first().value.asInteger();
+    		
+    		return size<=9 and size>=0;
+    		}
+    message : self.Name + ' -> The associated feature precision should have the value between 0 and 9'
+  }
+  
+  constraint AllowedDATEFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyDatetimeFeature')  and self.Type.isTypeOf(DatetimeType) and self.Type.Descriptor.asString()='DATE' 
+    check : self.features->size()=0
+    message : self.Name + ' -> The  attribute, column or field of type DATE should not have features'  
+  }
+  
+  constraint AllowedINTERVALYEARTOMONTHFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyIntervalFeature')  and self.Type.isTypeOf(DatetimeType) and self.Type.Descriptor.asString()='INTERVALYEARTOMONTH' 
+    check : self.features->select(f|f.key.asString()='year_precision')->size() = self.features->size()
+    message : self.Name + ' -> The  attribute, column or field of type INTERVALYEARTOMONTH should have only the feature: year_precision'    
+  }
+  
+  constraint AllowedINTERVALYEARTOMONTHyear {
+    guard: self.satisfies('notEmptyStructuralComponentType')and self.Type.isTypeOf(DatetimeType) and self.Type.Descriptor.asString()='INTERVALYEARTOMONTH' and self.features->exists(f|f.key.asString()='year_precision') 
+    check {
+    		var size:Integer :=self.features->select(f|f.key.asString()='year_precision')->first().value.asInteger();
+    		
+    		return size<=9 and size>=0;
+    		}
+    message : self.Name + ' -> The associated feature year_precision should have the value between 0 and 9'
+  }
+  
+   constraint AllowedINTERVALDAYTOSECONDFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyIntervalFeature')  and self.Type.isTypeOf(DatetimeType) and self.Type.Descriptor.asString()='INTERVALDAYTOSECOND' 
+    check : self.features->select(f|f.key.asString()='day_precision' or f.key.asString()='second_precision')->size() = self.features->size()
+    message : self.Name + ' -> The  attribute, column or field of type INTERVALDAYTOSECOND should have only the feature: day_precision, second_precision'    
+  }
+  
+  constraint AllowedINTERVALYEARTOMONTHday {
+    guard: self.satisfies('notEmptyStructuralComponentType')and self.Type.isTypeOf(DatetimeType) and self.Type.Descriptor.asString()='INTERVALDAYTOSECOND' and self.features->exists(f|f.key.asString()='day_precision') 
+    check {
+    		var size:Integer :=self.features->select(f|f.key.asString()='day_precision')->first().value.asInteger();
+    		
+    		return size<=9 and size>=0;
+    		}
+    message : self.Name + ' -> The associated feature day_precision should have the value between 0 and 9'
+  }
+  
+  constraint AllowedINTERVALYEARTOMONTHsecond {
+    guard: self.satisfies('notEmptyStructuralComponentType')and self.Type.isTypeOf(DatetimeType) and self.Type.Descriptor.asString()='INTERVALDAYTOSECOND' and self.features->exists(f|f.key.asString()='second_precision') 
+    check {
+    		var size:Integer :=self.features->select(f|f.key.asString()='second_precision')->first().value.asInteger();
+    		
+    		return size<=9 and size>=0;
+    		}
+    message : self.Name + ' -> The associated feature second_precision should have the value between 0 and 9'
+  }
+  
+  constraint AllowedROWIDFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyRowFeature')  and self.Type.isTypeOf(ROWIDType) and self.Type.Descriptor.asString()='ROWID' 
+    check : self.features->size()=0
+    message : self.Name + ' -> The  attribute, column or field of type ROWID should not have features'  
+  }
+  
+   constraint AllowedUROWIDFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyRowFeature')  and self.Type.isTypeOf(ROWIDType) and self.Type.Descriptor.asString()='UROWID' 
+    check : self.features->select(f|f.key.asString()='size')->size() = self.features->size()
+    message : self.Name + ' -> The  attribute, column or field of type UROWID should have only the feature: size'
+    
+  }
+  
+    constraint AllowedUROWIDMaxSize {
+    guard: self.satisfies('notEmptyStructuralComponentType')and self.Type.isTypeOf(ROWIDType) and self.Type.Descriptor.asString()='UROWID' and self.features->exists(f|f.key.asString()='size') 
+    check {
+    		var size:Integer :=self.features->select(f|f.key.asString()='size')->first().value.asInteger();
+    		
+    		return size<=4000 and size>=1;
+    		}
+    message : self.Name + ' -> The associated feature size should have the value between 1 and 4000'
+    
+  }
+  
+    constraint AllowedANSIFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyCharacterFeature')  and self.Type.isTypeOf(ANSICharacterType)
+    check : self.features->select(f|f.key.asString()='size')->size() = self.features->size()
+    message : self.Name + ' -> The  attribute, column or field of type ANSI should only have the feature: size'
+    
+  }
+  
+  constraint AllowedANSINumericFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyNumberFeature')  and self.Type.isTypeOf(ANSINumberType) and (self.Type.Descriptor.asString()='NUMERIC'or self.Type.Descriptor.asString()='DECIMAL'or self.Type.Descriptor.asString()='DEC') 
+    check : self.features->select(f|f.key.asString()='scale' or f.key.asString()='precision')->size() = self.features->size()
+    message : self.Name + ' -> The  attribute, column or field of type NUMERIC should have only the feature: precision, scale'
+    
+  }
+  
+  constraint NotAllowedANSINumericFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyNumberFeature')  and self.Type.isTypeOf(ANSINumberType) and self.Type.isTypeOf(ANSINumberType) and not(self.Type.Descriptor.asString()='NUMERIC'or self.Type.Descriptor.asString()='DECIMAL'or self.Type.Descriptor.asString()='DEC'or self.Type.Descriptor.asString()='FLOAT') 
+    check : self.features->size()=0
+    message : self.Name + ' -> The  attribute, column or field of type ANSI Numeric (except NUMERIC, DEC, DECIMAL and FLOAT) should not have features'  
+  }
+  
+  constraint AllowedFloatFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType') and self.satisfies('OnlyNumberFeature')  and self.Type.isTypeOf(ANSINumberType) and self.Type.Descriptor.asString() = 'FLOAT'
+    check : self.features->select(f|f.key.asString()='size')->size() = self.features->size()
+    message : self.Name + ' -> The  attribute, column or field of type FLOAT should only have the feature: size'
+    
+  }
+  
+  constraint AllowedANSIFeatures {
+    guard: self.satisfies('notEmptyStructuralComponentType')  and (self.Type.isKindOf(SuppliedType)or self.Type.isKindOf(LOBType))
+    check : self.features->size()=0
+    message : self.Name + ' -> The  attribute, column or field of type Supplied or LOB should not have features'
+    
+  }
+}
+
+context Column {
+
+	-- Las columnas de una tabla deben tener nombres únicos
+  	constraint uniqueColumnName {
+  		guard : self.satisfies('validStructuralComponentName') and self.table.columns->select(bc | bc.isTypeOf(Column))->size() > 1
+    	check : self.table.columns->
+    		select(st | st.isTypeOf(Column))->
+    			select(c | c.Name = self.Name)->size()=1
+	    message : 'The name of columns of a table should be unique'
+	    fix	{
+	    	title : 'Choose another name to Column: ' + self.Name
+	     	do {
+	 			self.Name := UserInput.prompt('Name of Column', self.Name);
+	     	}
+	    }
+	}
+}
+
+context Attribute {
+
+	-- Los atributos de un tipo estructurado deben tener nombres únicos
+  	constraint uniqueAttributeName {
+  		guard : self.satisfies('validStructuralComponentName') and self.structured.attribute->size() > 1
+    	check : self.structured.attribute->select(a | a.Name = self.Name)->size()=1
+	    message : 'The name of attribute "' + self.Name + '" should be unique in the UDT that contains it'
+	     fix	{
+	    	title : 'Choose another name to Attribute: ' + self.Name
+	     	do {
+	 			self.Name := UserInput.prompt('Name of Attribute', self.Name);
+	     	}
+	    }
+	}
+	
+	-- Un atributo no puede tener como tipo el tipo estructurado que lo contiene
+  	constraint nonRecursiveAttributeType {
+  	  	guard : self.satisfies('notEmptyStructuralComponentType')
+    	check : self.structured <> self.Type
+	    message : 'The type of attribute "' + self.Name +  '" should not be the UDT that contains it'
+	}
+}
+
+context Method {
+
+	-- El nombre de un método es obligatorio y no puede estar vacío
+	constraint notEmptyMethodName {
+		check : self.Name.isDefined()
+		message : getMessageNotEmptyName('Method')
+		fix {
+     		title : getTitleNotEmptyName('Method')
+     		do {
+    			self.name := getInputNotEmptyName('Method'); 
+     		}
+    	}
+    }
+    
+	-- El nombre de un Method no puede estar vacío
+	-- y debe empezar por una letra, seguido de letras, números,
+	-- guiones o guiones bajos.
+	constraint validMethodName {
+		guard : self.satisfies('notEmptyMethodName')
+		check : self.Name.isValidName()
+		message : getMessageValidName('Method')
+		fix {
+     		title : getTitleValidName('Method', self.Name)
+     		do {
+    			self.Name := getInputValidName('Method', self.Name); 
+     		}
+    	}
+    }
+    
+	-- Los métodos de un tipo estructurado deben ser únicos
+	constraint uniqueMethod {
+ 	  	guard : self.satisfies('validMethodName') and
+ 	  			self.structured.method->size() > 1
+	    check : not self.hasEqualMethods()
+	    message : 'The method "' + self.Name +'" should be unique in the UDT that contains it'
+	}
+	
+	-- Los métodos de un tipo estructurado deben tener un tipo de retorno
+ 	constraint notEmptyMethodReturnType {
+		check : self.returnType.isDefined()
+	    message : 'The return type of Method "' + self.Name + '" should be defined'
+	}
+	
+	-- Un método no puede devolver como tipo el tipo estructurado que lo contiene
+  	constraint nonRecursiveMethodReturnType {
+  	  	guard : self.satisfies('notEmptyMethodReturnType')
+    	check : self.structured <> self.returnType
+	    message : 'The type of a method should not be the UDT that contains it'
+	}
+
+	-- Sólo se puede sobrecargar un método del tipo estructurado padre
+	-- del tipo estructurado que lo contiene
+	constraint overridingSuperStructuredTypeMethod {
+  	  	guard : self.override.isDefined()
+    	check : self.structured.supertype.isDefined() and
+    		self.structured.supertype.method->
+				select(m | (m = self.override))->size() = 1
+	    message : 'The method "' + self.Name + '" should override a method of ' +
+	    	'the supertype UDT "' + self.structured.supertype.Name + '"'
+	}
+	
+	-- Si un método sobrescribe a otro debe ser igual que él en nombre, tipo de
+	-- retorno y parámetros
+	constraint overridingMethodWithSameStructure {
+  	  	guard : self.satisfies('overridingSuperStructuredTypeMethod')
+    	check : self.structured.supertype.method->
+    		select(m | m.isEqual(self))->size() = 1
+	    message : 'The method "' + self.Name + '" should have same name, ' + 
+	    		  'return type and parameter than overriding method'
+	}
+}
+
+context Parameter {
+
+	-- El nombre de un Parameter no puede estar vacío
+	-- y debe empezar por una letra, seguido de letras, números,
+	-- guiones o guiones bajos.
+	-- El método getClassName() pertenece a la implementación de Parameter
+	constraint validParameterName {
+		check : self.Name.isValidName()
+		message : 'The name of the Parameter should start with a letter and contain letters, numbers, underscore or dashes'
+		fix {
+     		title : 'Change the name of the Parameter ' + self.Name
+     		do {
+    			self.Name := UserInput.prompt(
+    				'Name of the Parameter', self.Name); 
+     		}
+    	}
+    }
+    
+   	-- El tipo de un parámetro debe estar definido 
+ 	constraint notEmptyParameterType {
+		check : self.Type.isDefined()
+	    message : 'The type of the Parameter "' + self.Name + 
+	    		  '" should be defined'
+	    fix	{
+	    	title : 'Choose a type to the Parameter ' + self.Name
+	     	do {
+	    		self.Type := UserInput.choose('Choose a Data Type', self.model.datatype); 
+	     	}
+	    }
+	}
+}
+
+
+context Operation {
+
+-- El nombre de un Operation es obligatorio y no puede estar vacío
+	constraint notEmptyOperationName {
+		check : self.Name.isDefined()
+		message : getMessageNotEmptyName('Operation')
+		fix {
+     		title : getTitleNotEmptyName('Operation')
+     		do {
+    			self.Name := getInputNotEmptyName('Operation'); 
+     		}
+    	}
+    }
+    
+	-- El nombre de un modelo no puede estar vacío
+	-- y debe empezar por una letra, seguido de letras, números,
+	-- guiones o guiones bajos.
+	constraint validOperationName {
+		guard : self.satisfies('notEmptyOperationName')
+		check : self.Name.isValidName()
+		message : getMessageValidName('Operation')
+		fix {
+     		title : getTitleValidName('Operation', self.Name)
+     		do {
+    			self.Name := getInputValidName('Operation', self.Name); 
+     		}
+    	}
+    }
+}
+
+context Package {
+
+-- El nombre de un Package es obligatorio y no puede estar vacío
+	constraint notEmptyPackageName {
+		check : self.Name.isDefined()
+		message : getMessageNotEmptyName('Package')
+		fix {
+     		title : getTitleNotEmptyName('Package')
+     		do {
+    			self.Name := getInputNotEmptyName('Package'); 
+     		}
+    	}
+    }
+    
+	-- El nombre de un Package no puede estar vacío
+	-- y debe empezar por una letra, seguido de letras, números,
+	-- guiones o guiones bajos.
+	constraint validPackageName {
+		guard : self.satisfies('notEmptyPackageName')
+		check : self.Name.isValidName()
+		message : getMessageValidName('Package')
+		fix {
+     		title : getTitleValidName('Package', self.Name)
+     		do {
+    			self.Name := getInputValidName('Package', self.Name); 
+     		}
+    	}
+    }
+}
+
+
+context Function {
+	
+   	-- El tipo de retorno de una función debe estar definido 
+ 	constraint notEmptyFunctionReturnType {
+		check : self.Return.isDefined()
+	    message : 'The return type of the Function "' + self.Name + 
+	    		  '" should be defined'
+	}
+}
+
+context ReferenceType {
+-- El nombre de un Reference es obligatorio y no puede estar vacío
+	constraint notEmptyRefName {
+		check : self.Name.isDefined()
+		message : getMessageNotEmptyName('Reference')
+		fix {
+     		title : getTitleNotEmptyName('Reference')
+     		do {
+    			self.Name := getInputNotEmptyName('Reference'); 
+     		}
+    	}
+    }
+    
+	-- El nombre de un Reference no puede estar vacío
+	-- y debe empezar por una letra, seguido de letras, números,
+	-- guiones o guiones bajos.
+	constraint validRefName {
+		guard : self.satisfies('notEmptyRefName')
+		check : self.Name.isValidName()
+		message : getMessageValidName('Reference')
+		fix {
+     		title : getTitleValidName('Reference', self.Name)
+     		do {
+    			self.Name := getInputValidName('Reference', self.Name); 
+     		}
+    	}
+    }
+
+   	-- El tipo de una referencia debe estar definido 
+ 	constraint notEmptyReferenceType {
+		check : self.Type.isDefined()
+	    message : 'The UDT of the Reference Type "' + self.Name + '" should be defined'
+	    fix	{
+	    	title : 'Choose a UDT to Reference Type: ' + self.Name
+	     	do {
+	    		self.Type := UserInput.choose('Choose an UDT', self.model.datatype->select(dt | dt.isTypeOf(StructuredType))); 
+	     	}
+	    }
+	}
+	
+	-- No pueden existir dos ReferenceType con el mismo nombre
+	constraint uniqueReferenceTypeName {
+	    check : self.model.datatype->
+	    			select(dt | dt.isTypeOf(ReferenceType) and 
+	    				(dt.Name = self.Name))->size() = 1
+	    message : 'The name of Reference Type should be unique'
+	    fix	{
+	    	title : 'Choose another name to Reference Type: ' + self.Name
+	     	do {
+	 			self.Name := UserInput.prompt('Name of Reference Type', self.Name);
+	     	}
+	    }
+    }
+    
+   	-- El tipo de una referencia debe ser un UDT
+ 	constraint onlyUDTReferenceType {
+ 	    guard : self.satisfies('notEmptyReferenceType')
+		check : self.Type.isTypeOf(StructuredType)
+	    message : 'The type of Reference should be an UDT'
+	    fix	{
+	    	title : 'Choose a UDT to Reference Type: ' + self.Name
+	     	do {
+	    		self.type := UserInput.choose('Choose an UDT', 
+	    			self.model.datatype->
+	    				select(dt | dt.isTypeOf(StructuredType))); 
+	     	}
+	    }
+	}
+}
+
+
+context Varray {
+-- El nombre de un Varray es obligatorio y no puede estar vacío
+	constraint notEmptyVarrayName {
+		check : self.Name.isDefined()
+		message : getMessageNotEmptyName('Varray')
+		fix {
+     		title : getTitleNotEmptyName('Varray')
+     		do {
+    			self.Name := getInputNotEmptyName('Varray'); 
+     		}
+    	}
+    }
+    
+	-- El nombre de un Varray no puede estar vacío
+	-- y debe empezar por una letra, seguido de letras, números,
+	-- guiones o guiones bajos.
+	constraint validVarrayName {
+		guard : self.satisfies('notEmptyVarrayName')
+		check : self.Name.isValidName()
+		message : getMessageValidName('Varray')
+		fix {
+     		title : getTitleValidName('Varray', self.Name)
+     		do {
+    			self.Name := getInputValidName('Varray', self.Name); 
+     		}
+    	}
+    }
+	-- Un array debe tener definido el número de elementos que puede almacenar
+	constraint notEmptyArray {
+		guard : self.satisfies('validVarrayName')
+		check : self.NumElements > 0
+		message : 'The number of elements of ARRAY "' + self.Name + 
+				  '" should be greater than 0'
+		fix {
+     		title : 'Change the number of elements of ARRAY: "' + self.Name + '"'
+     		do {
+    			self.NumElements := UserInput.promptInteger('Number of elements of ARRAY', self.NumElements); 
+     		}
+    	}
+	}
+	
+	-- No pueden existir dos ARRAY con el mismo nombre
+	constraint uniqueARRAYName {
+		guard : self.satisfies('validVarrayName') and
+  				self.model.datatype->select(dt | dt.isTypeOf(Varray))->size() > 1
+	    check : self.model.datatype->select(dt | dt.isTypeOf(Varray) and  (dt.Name = self.Name))->size() = 1
+	    message : getMessageUniqueName('Varray', self.Name)
+    }
+    
+       	-- El tipo de una referencia debe estar definido 
+ 	constraint notEmptyVarrayType {
+		check : self.Type.isDefined()
+	    message : 'The Type of the Varray "' + self.Name + '" should be defined'
+	}
+}
+
+context NestedTableType {
+-- El nombre de un NestedTable es obligatorio y no puede estar vacío
+	constraint notEmptyNTName {
+		check : self.Name.isDefined()
+		message : getMessageNotEmptyName('NestedTable')
+		fix {
+     		title : getTitleNotEmptyName('NestedTable')
+     		do {
+    			self.Name := getInputNotEmptyName('NestedTable'); 
+     		}
+    	}
+    }
+    
+	-- El nombre de un NestedTable no puede estar vacío
+	-- y debe empezar por una letra, seguido de letras, números,
+	-- guiones o guiones bajos.
+	constraint validNTName {
+		guard : self.satisfies('notEmptyNTName')
+		check : self.Name.isValidName()
+		message : getMessageValidName('NestedTable')
+		fix {
+     		title : getTitleValidName('NestedTable', self.Name)
+     		do {
+    			self.Name := getInputValidName('NestedTable', self.Name); 
+     		}
+    	}
+    }
+
+	
+	-- No pueden existir dos NestedTable con el mismo nombre
+	constraint uniqueNTName {
+		guard : self.satisfies('validNTName') and
+  				self.model.datatype->select(dt | dt.isTypeOf(NestedTableType))->size() > 1
+	    check : self.model.datatype->select(dt | dt.isTypeOf(NestedTableType) and  (dt.Name = self.Name))->size() = 1
+	    message : getMessageUniqueName('NestedTable', self.Name)
+    }
+    
+       	-- El tipo de una referencia debe estar definido 
+ 	constraint notEmptyNTType {
+		check : self.Type.isDefined()
+	    message : 'The Type of the NestedTable "' + self.Name + '" should be defined'
+	    fix	{
+	    	title : 'Choose a Type to the NestedTable: ' + self.Name
+	     	do {
+	    		self.Type := UserInput.choose('Choose a Type', self.model.datatype); 
+	     	}
+	    }
+	}
+}
+
+context Table {
+
+-- El nombre de una tabla es obligatorio y no puede estar vacío
+	constraint notEmptyTableName {
+		check : self.Name.isDefined()
+		message : getMessageNotEmptyName('Table')
+		fix {
+     		title : getTitleNotEmptyName('Table')
+     		do {
+    			self.Name := getInputNotEmptyName('Table'); 
+     		}
+    	}
+    }
+    
+	-- El nombre de una tabla no puede estar vacío
+	-- y debe empezar por una letra, seguido de letras, números,
+	-- guiones, guiones bajos, espacios o corchetes.
+	constraint validTableName {
+		guard : self.satisfies('notEmptyTableName')
+		check : self.Name.isValidName()
+		message : getMessageValidName('Table', self.Name)
+		fix {
+     		title : getTitleValidName('Table', self.Name)
+     		do {
+    			self.Name := getInputValidName('Table', self.Name); 
+     		}
+    	}
+    }
+    
+	-- No pueden existir dos tablas con el mismo nombre
+	constraint uniqueTableName {
+		guard : self.isTypeOf(Table) and self.satisfies('validTableName')
+	    check : self.model.table->select(dt | dt.isTypeOf(Table) and (dt.Name = self.Name))->size() = 1
+		message : getMessageUniqueName('Table', self.Name)
+    }
+    
+    -- Una tabla solamente puede tener una clave primaria
+  	constraint onlyOnePK {
+  		guard : self.restriction.notEmpty()
+    	check : self.restriction->select(pk | pk.isTypeOf(PrimaryKey))->size() < 2
+   	 	message : 'The Table"' + self.Name +  '" can only have one Primary Key'
+  	}
+}
+
+
+context Trigger {
+
+	-- El nombre de un trigger es obligatorio y no puede estar vacío
+	constraint notEmptyTriggerName {
+		check : self.Name.isDefined()
+		message : getMessageNotEmptyName('Trigger')
+		fix {
+     		title : getTitleNotEmptyName('Trigger')
+     		do {
+    			self.Name := getInputNotEmptyName('Trigger'); 
+     		}
+    	}
+    }
+    
+	-- El nombre de un trigger no puede estar vacío
+	-- y debe empezar por una letra, seguido de letras, números,
+	-- guiones, guiones bajos, espacios o corchetes.
+	constraint validTriggerName {
+		guard : self.satisfies('notEmptyTriggerName')
+		check : self.Name.isValidName()
+		message : getMessageValidName('Trigger', self.Name)
+		fix {
+     		title : getTitleValidName('Trigger', self.Name)
+     		do {
+    			self.Name := getInputValidName('Trigger', self.Name); 
+     		}
+    	}
+    }
+    
+	-- Los triggers de una tabla deben tener nombres únicos
+  	constraint uniqueTriggerName {
+  		guard : self.satisfies('validTriggerName')
+    	check : self.table.triggers->select(t | t.Name = self.Name)->size() = 1
+	    message : getMessageUniqueName('Trigger', self.Name)
+	}
+	
+	
+	-- En un trigger sus columnas deben pertenecer a las tablas asociadas a él
+  	constraint validTriggerUpdateColumns {
+	    check {
+	    	var validColumns : Sequence(StructuralComponent) := 
+	    		self.table.getValidTableAttributes().asSequence();
+	    	var triggerColumns : Sequence(StructuralComponent) :=
+	    		self.updateColumns.asSequence();
+	    	var ok : Boolean := true;
+	    	var i : Integer := 0;
+	    	while (ok and (i < triggerColumns.size())) {
+	    		ok := validColumns.includes(triggerColumns.at(i));
+	    		i := i + 1;
+	    	}
+	    	return ok;
+	    }
+	    message : 'The attributes or columns of a Trigger ' + 
+	    		  'should be asociated with its table: "' + self.Name + '"'
+	}
+}
+
+context View {
+-- El nombre de una View es obligatorio y no puede estar vacío
+	constraint notEmptyViewName {
+		check : self.Name.isDefined()
+		message : getMessageNotEmptyName('View')
+		fix {
+     		title : getTitleNotEmptyName('View')
+     		do {
+    			self.Name := getInputNotEmptyName('View'); 
+     		}
+    	}
+    }
+    
+	-- El nombre de una View no puede estar vacío
+	-- y debe empezar por una letra, seguido de letras, números,
+	-- guiones, guiones bajos, espacios o corchetes.
+	constraint validViewName {
+		guard : self.satisfies('notEmptyViewName')
+		check : self.Name.isValidName()
+		message : getMessageValidName('View', self.Name)
+		fix {
+     		title : getTitleValidName('View', self.Name)
+     		do {
+    			self.Name := getInputValidName('View', self.Name); 
+     		}
+    	}
+    }
+    
+	-- No pueden existir dos vistas con el mismo nombre
+	constraint uniqueTableName {
+		guard : self.satisfies('validViewName')
+	    check : self.model.table->select(dt | dt.isTypeOf(View) and (dt.Name = self.Name))->size() = 1
+		message : getMessageUniqueName('View', self.Name)
+    }
+    
+	-- Una vista debe estar asociada a una tabla como mínimo
+  	constraint notEmptyViewTables {
+  		guard : self.satisfies('validTableName')
+	    check : self.tables.notEmpty()
+	    message : getMessageNotEmptyType('tables', 'View', self.Name)
+	}
+	
+	-- En una vista sus componentes deben pertenecer a las tablas asociadas a ella
+  	constraint validViewComponents {
+	    check {
+	    	var viewColumns : Sequence(StructuralComponent) :=
+				self.components.asSequence();
+	    	var ok : Boolean := true;
+	    	var i : Integer := 0;
+	    	
+	    	while (ok and (i < viewColumns.size())) {
+	    		if (viewColumns.at(i).isTypeOf(Column)) {
+	    			ok := self.tables->includes(viewColumns.at(i).table);
+	    		}
+	    		else if (viewColumns.at(i).isTypeOf(Attribute)){
+	    			if (viewColumns.at(i).structured.typed.notEmpty()) {
+	    				ok := viewColumns.at(i).structured.typed->exists(tt | 
+	    					self.tables->includes(tt));
+					}
+					else {
+						ok := false;
+					}
+	    		}
+	    		else {
+	    			ok := false;
+	    		}
+	    		i := i + 1;
+	    	}
+	    	return ok;
+	    }
+	    message : 'The attributes or columns of View "' + self.Name +'" should be asociated with its table'
+	}
+}
+
+
+context CharacterFeature {
+  constraint ValidSemantic {
+    guard : self.isTypeOf(CharacterFeature) and self.key.asString() = 'semantic' --and self.satisfies('AllowedSemantic')
+    check : self.value = 'CHAR' or self.value = 'BYTE'
+    message : 'The allowed values for the semantic feature are CHAR or BYTE ' 
+    fix {
+     	title: 'Fill the semantic´s value'
+     	do {
+    		self.value := UserInput.choose('Choose the semantic', Sequence{'CHAR','BYTE'},'CHAR');
+    		 
+     		}
+    
+    	}
+  }
+  
+   constraint Size {
+    guard : self.isTypeOf(CharacterFeature) and self.key.asString() = 'size' and self.value.isDefined()
+    check : self.value.matches('[0123456789][0123456789]*')
+    message : 'The value isn`t a Number' 
+    fix {
+     	title: 'Fill the size´s value'
+     	do {
+    		self.value := UserInput.prompt('Input a size','1');
+    		 
+     		}
+    
+    	}
+  }
+  
+}
+
+context DatetimeFeature {
+  constraint Precision {
+    guard:self.isTypeOf(DatetimeFeature) 
+    check :self.value.matches('[0123456789]')
+    message : 'The value isn`t a one digit Number'
+    fix {
+     	title: 'Fill the precision´s value'
+     	do {
+    		self.value := UserInput.prompt('Input a size','1');
+     		}
+    
+    	}
+  }
+  
+}
+
+context IntervalFeature {
+  constraint Precision {
+    guard: self.isTypeOf(IntervalFeature) 
+    check : self.value.matches('[0123456789]')
+    message : 'The value isn`t a one digit Number'
+    fix {
+     	title: 'Fill the precision´s value'
+     	do {
+    		self.value := UserInput.prompt('Input a precision','1');
+     		}
+    
+    	}
+  }
+  
+}
+
+context NumberFeature {
+  constraint valueType {
+     guard: self.isTypeOf(NumberFeature) 
+    check : self.value.matches('[0123456789][0123456789]*')
+    message : 'The value isn`t a Number'
+    fix {
+     	title: 'Fill the integer value'
+     	do {
+    		self.value := UserInput.prompt('Input an integer','1');
+     		}
+    
+    	}
+  }
+}
+
+context RawFeature {
+  constraint valueType {
+     guard: self.isTypeOf(RawFeature) 
+    check : self.value.matches('[0123456789][0123456789]*')
+    message : 'The value isn`t a Number'
+    fix {
+     	title: 'Fill the integer value'
+     	do {
+    		self.value := UserInput.prompt('Input an integer','1');
+     		}
+    
+    	}
+  }
+}
+
+context RowFeature {
+  constraint valueType {
+    guard: self.isTypeOf(RowFeature) 
+    check : self.value.matches('[0123456789][0123456789]*')
+    message : 'The value isn`t a Number'
+    fix {
+     	title: 'Fill the integer value'
+     	do {
+    		self.value := UserInput.prompt('Input an integer','1');
+     		}
+    
+    	}
+  }
+}
+
+
+
+context Unique {
+
+  constraint LegaAttributes {
+   
+    check {
+    					
+    				  var a:Integer := self.attributes->select(a|a.Type.isKindOf(BasicDataType))->select(a|a.Type.Descriptor.asString()='LONG' or  a.Type.Descriptor.asString()='LONGRAW' or a.Type.Descriptor.asString()='TIMESTAMPWITHTIMEZONE' or  a.Type.isTypeOf(LOBType))->size();
+    				  var b:Integer:= self.attributes->select(a|a.Type.isKindOf(BasicDataType))->size();
+    				  return a = 0 and b = self.attributes->size();
+    	}
+    message : 'The Unique Restriction should not be associated with Long, long raw, timestamp with timezone or LOB Types.'
+  }
+}
+
+context PrimaryKey {
+
+  constraint LegaAttributes {
+   
+    check {
+    					
+    				  var a:Integer := self.attributes->select(a|a.Type.isKindOf(BasicDataType))->select(a|a.Type.Descriptor.asString()='LONG' or  a.Type.Descriptor.asString()='LONGRAW' or a.Type.Descriptor.asString()='TIMESTAMPWITHTIMEZONE' or  a.Type.isTypeOf(LOBType))->size();
+    				  var b:Integer:= self.attributes->select(a|a.Type.isKindOf(BasicDataType))->size();
+    				  return a = 0 and b = self.attributes->size();
+    	}
+    message :  'The PK Restriction should not be associated with Long, long raw, timestamp with timezone or LOB Types.'
+  }
+}
+
+context ForeignKey {
+
+  constraint LegaAttributes {
+   
+    check {
+    					
+    				  var a:Integer := self.attributes->select(a|a.Type.isKindOf(BasicDataType))->select(a|a.Type.Descriptor.asString()='LONG' or  a.Type.Descriptor.asString()='LONGRAW' or a.Type.Descriptor.asString()='TIMESTAMPWITHTIMEZONE' or  a.Type.isTypeOf(LOBType))->size();
+    				  var b:Integer:= self.attributes->select(a|a.Type.isKindOf(BasicDataType))->size();
+    				  return a = 0 and b = self.attributes->size();
+    	}
+    message : 'The FK Restriction should not be associated with Long, long raw, timestamp with timezone or LOB Types.'
+  }
+}
+
+operation getMessageNotEmptyName(objectClass : String) {
+	return 'The name of ' + objectClass + ' should be filled';
+}
+
+operation getTitleNotEmptyName(objectClass : String) {
+	return 'Fill the name of ' + objectClass;
+}
+
+operation getInputNotEmptyName(objectClass : String) {
+	return UserInput.prompt('Name of ' + objectClass);
+}
+
+operation getMessageValidName(objectClass : String) {
+	return 'The name of ' + objectClass + ' should start with a letter and ' +
+		   'contain letters, numbers, underscores or dashes';
+}
+
+operation getTitleValidName(objectClass : String, objectName : String) {
+	return 'Change the name of ' + objectClass + ' "' + objectName + '"';
+}
+
+operation getInputValidName(objectClass : String, objectName : String) {
+	return UserInput.prompt('Name of ' + objectClass, objectName);
+}
+
+operation getMessageNotEmptyType(
+		propertyName : String, objectClass : String, objectName : String) {
+		
+	return 'The ' + propertyName + ' of ' + objectClass + ' "' + objectName + 
+	    		  '" should be defined';
+}
+
+operation getTitleNotEmptyType(
+		propertyName : String, objectClass : String, objectName : String) {
+		
+	return 'Choose a ' + propertyName + ' to ' + objectClass + ': "' + 
+		   objectName + '"';
+}
+
+operation getMessageUniqueName(objectClass : String, objectName : String) {
+		
+	return 'The name of ' + objectClass + ' "' + objectName + '" should be unique';
+}
+
+operation getTitleUniqueName(objectClass : String, objectName : String) {
+		
+	return 'Choose another name to ' + objectClass + ': "' + objectName + '"';
+}
+
+-- Esta operación indica si un método está repetido en su UDT, es decir, hay otros
+-- métodos del mismo UDT iguales en nombre, tipo de retorno y tipo de parámetros.
+operation Method hasEqualMethods() : Boolean {
+	var methodList : Sequence(Method) :=
+		self.structured.method.excluding(self).asSequence();
+	var equalMethods : Boolean := false;
+	var metAux : Method;
+	var i : Integer := 0;
+	var equalMethods : Boolean := false;
+	
+	-- Mientras haya más de un método, puede haber repetidos
+	while ((not equalMethods) and (i < methodList.size())) {
+		metAux := methodList.at(i);
+		if (self.isEqual(metAux)) {
+			equalMethods := true;
+		}
+		else
+		{
+			i := i + 1;
+		}
+	}
+	return equalMethods;
+}
+
+-- Esta operación devuelve el conjunto de parámetros que tienen tipo
+-- del método que realiza la llamada.
+operation Method getParamsWithType() : Sequence(MethodParameter) {
+	return self.parameters->select(p : MethodParameter | p.Type.isDefined());
+}
+
+-- Esta operación indica si el método que la invoca y el de entrada 'm'
+-- son iguales en nombre, tipo de retorno y tipo de parámetros.
+operation Method isEqual(m : Method) : Boolean {
+	var selfParamTypesList : Sequence(MethodParameter);
+	var mParamTypesList : Sequence(MethodParameter);
+	var typesSet : Set(Datatype);
+	var equalsParamsType : Boolean := false;
+	var i : Integer;
+	var salir : Boolean := false;
+	
+	-- El nombre debe ser el mismo
+	if (self.Name = m.Name) {
+
+		-- El tipo de retorno debe ser el mismo
+		if ((self.returnType = m.returnType) or (self.returnType.isUndefined() and m.returnType.isUndefined()))
+		{	
+			-- El número de parámetros debe ser el mismo
+			if (self.parameters.size() = m.parameters.size()){
+				if (self.parameters.size() = 0) {
+					equalsParamsType := true;
+				}
+				else {
+					-- Comprueba que todos los parámetros a examinar tengan tipo					
+					if ((self.getParamsWithType()->size() = self.parameters->size()) and
+						(m.getParamsWithType()->size() = m.parameters->size()))
+					{
+
+						-- Primero se recopilan todos los tipos de datos de los parámetros.
+						-- Después se comprueba si cada tipo de datos si existe el mismo
+						-- número de parámetros asociados a él en ambos métodos.
+						selfParamTypesList := self.parameters->collect(p : MethodParameter | p.Type).asSequence();
+						mParamTypesList := m.parameters->collect(p : MethodParameter | p.Type).asSequence();
+						typesSet := selfParamTypesList.asSet();
+						i := 0;
+						while ((not salir) and (i < typesSet.size())) {
+							if (selfParamTypesList->count(typesSet.at(i)) =
+								mParamTypesList->count(typesSet.at(i)))
+							{
+								i := i + 1;
+							}
+							else
+							{
+								salir := true;
+							}
+						}
+						equalsParamsType := i = typesSet.size();
+					}
+					else {
+						equalsParamsType := (self.getParamsWithType()->size() = 
+							m.getParamsWithType()->size());
+					}
+				}
+			}
+		}
+	}
+	return equalsParamsType;
+}
+
+-- Un nombre válido debe empezar por una letra y debe contener solamente
+-- letras, números, '_' o '-'
+operation String isValidName() : Boolean {
+	var result : Boolean := false;
+	if (self.isDefined()) {
+		result := self.matches('[(A-Z)(a-z)][\\s\\w\\[\\]_-]*');
+	}
+	return result;
+}
+
+-- Esta operación devuelve los atributos o columnas asociados a una tabla
+operation Table getValidTableAttributes() : Sequence(StructuralComponent) {
+	var columns : Sequence(StructuralComponent) := Sequence{};
+	var superUDT : StructuredType;
+	
+	if (self.isTypeOf(TypedTable)) {
+		-- Agrega los atributos de su UDT asociado y además las columnas que tenga
+		columns := self.structuredType.attribute.asSequence();
+		columns.addAll(self.columns);
+		
+		-- Agrega los atributos de sus ancestros UDT si los tiene por herencia
+		superUDT := self.structuredType.supertype;
+		while (superUDT.isDefined()) {
+			columns.addAll(superUDT.attribute);
+			superUDT := superUDT.supertype;
+		}
+	}
+	else {
+		-- Es un tipo de tabla sin UDT asociado, así que agrega sus columnas
+		columns := self.columns.asSequence();
+	}
+	
+	return columns;
+}
+
+operation getMessageValidName(objectClass : String, objectName : String) {
+	return 'The name of ' + objectClass + ' "' + objectName +
+		   '" should start with a letter and ' +
+		   'contain letters, numbers, underscores, dashes, blank spaces or ' + 
+		   'square bracket ("ñ" not permitted)';
+		   }

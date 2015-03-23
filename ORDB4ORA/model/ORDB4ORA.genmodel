@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/ORDB4ORA/src"
+    modelPluginID="ORDB4ORA" modelName="ORDB4ORA" testsDirectory="" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false">
+  <foreignModel>ORDB4ORA.ecore</foreignModel>
+  <genPackages prefix="ORDB4ORA" disposableProviderFactory="true" ecorePackage="ORDB4ORA.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//ANSICharacterTypes">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ANSICharacterTypes/CHARACTER"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ANSICharacterTypes/CHARACTERVARYING"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ANSICharacterTypes/CHARVARYING"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ANSICharacterTypes/NCHARVARYING"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ANSICharacterTypes/VARCHAR"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ANSICharacterTypes/NATIONALCHARACTER"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ANSICharacterTypes/NATIONALCHAR"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ANSICharacterTypes/NATIONALCHARACTERVARYING"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ANSICharacterTypes/NATIONALCHARVARYING"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//ANSINumberTypes">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ANSINumberTypes/NUMERIC"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ANSINumberTypes/DECIMAL"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ANSINumberTypes/DEC"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ANSINumberTypes/INTEGER"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ANSINumberTypes/INT"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ANSINumberTypes/SMALLINT"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ANSINumberTypes/FLOAT"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ANSINumberTypes/DOUBLEPRECISION"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ANSINumberTypes/REAL"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//BuiltInCharacterSemantics">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInCharacterSemantics/BYTE"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInCharacterSemantics/CHAR"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//BuiltInCharacterTypes">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInCharacterTypes/CHAR"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInCharacterTypes/VARCHAR2"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInCharacterTypes/NCHAR"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInCharacterTypes/NVARCHAR2"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//BuiltInDatetimeTypes">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInDatetimeTypes/DATE"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInDatetimeTypes/TIMESTAMP"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInDatetimeTypes/TIMESTAMPWITHTIMEZONE"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInDatetimeTypes/TIMESTAMPWITHLOCALTIMEZONE"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInDatetimeTypes/INTERVALYEARTOMONTH"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInDatetimeTypes/INTERVALDAYTOSECOND"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//BuiltInLOBType">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInLOBType/BLOB"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInLOBType/CLOB"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInLOBType/NLOB"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInLOBType/BFILE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//BuiltInLongAndRawTypes">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInLongAndRawTypes/LONG"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInLongAndRawTypes/LONGRAW"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInLongAndRawTypes/RAW"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//BuiltInROWIDType">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInROWIDType/ROWID"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltInROWIDType/UROWID"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//BuiltNumberTypes">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltNumberTypes/NUMBER"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltNumberTypes/BINARY_FLOAT"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//BuiltNumberTypes/BINARY_DOUBLE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//CharacterFeatures">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//CharacterFeatures/size"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//CharacterFeatures/semantic"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//DatetimeFeatures">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//DatetimeFeatures/precision"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//IntervalFeatures">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//IntervalFeatures/day_precision"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//IntervalFeatures/second_precision"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//IntervalFeatures/year_precision"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//NumberFeatures">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//NumberFeatures/size"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//NumberFeatures/precision"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//NumberFeatures/scale"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//ONDELETEActions">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ONDELETEActions/CASCADE"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ONDELETEActions/SETNULL"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//ParameterMode">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ParameterMode/IN"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ParameterMode/OUT"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//ParameterMode/INOUT"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//RawFeatures">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//RawFeatures/size"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//RowFeatures">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//RowFeatures/size"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//SuppliedAnyTypes">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedAnyTypes/SYSANYDATA"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedAnyTypes/SYSANYTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedAnyTypes/SYSANYDATASET"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//SuppliedMediaTypes">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedMediaTypes/ORDAudio"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedMediaTypes/ORDImage"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedMediaTypes/ORDVideo"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedMediaTypes/ORDDoc"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedMediaTypes/ORDImageSignature"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedMediaTypes/SI_STILLIMAGE"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedMediaTypes/SI_AVERAGECOLOR"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedMediaTypes/SI_POSITIONALCOLOR"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedMediaTypes/SI_COLORHISTOGRAM"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedMediaTypes/SI_TEXTURE"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedMediaTypes/SI_FEATURELIST"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedMediaTypes/SI_COLOR"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//SuppliedSpacialTypes">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedSpacialTypes/SDO_GEOMETRY"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedSpacialTypes/SDO_TOPO_GEOMETRY"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedSpacialTypes/SDO_RASTER"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//SuppliedXMLTypes">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedXMLTypes/XMLTYPE"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//SuppliedXMLTypes/URITYPE"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//TriggerActionTime">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//TriggerActionTime/BEFORE"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//TriggerActionTime/AFTER"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//TriggerActionTime/INSTEADOF"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="ORDB4ORA.ecore#//TriggerEvent">
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//TriggerEvent/DELETE"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//TriggerEvent/INSERT"/>
+      <genEnumLiterals ecoreEnumLiteral="ORDB4ORA.ecore#//TriggerEvent/UPDATE"/>
+    </genEnums>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//ANSICharacterType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//ANSICharacterType/Descriptor"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//ANSINumberType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//ANSINumberType/Descriptor"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="ORDB4ORA.ecore#//ANSIType"/>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//AnyType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//AnyType/Descriptor"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//Attribute">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Attribute/structured"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//Attribute/default"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="ORDB4ORA.ecore#//BasicDataType"/>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//BuiltInCharacterType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//BuiltInCharacterType/Descriptor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//BuiltInCharacterType/Semantic"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//BuiltInCharacterType/Size_Min"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//BuiltInCharacterType/Size_Max"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//BuiltInCharacterType/Size_Def"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//BuiltInNumberType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//BuiltInNumberType/Descriptor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//BuiltInNumberType/Precision_Mn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//BuiltInNumberType/Precision_Max"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//BuiltInNumberType/Scale_Min"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//BuiltInNumberType/Scale_Max"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="ORDB4ORA.ecore#//BuiltInType"/>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//CharacterFeature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//CharacterFeature/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//CharacterFeature/value"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//Check">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//Check/Condition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//Check/Name"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//Column">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Column/table"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="ORDB4ORA.ecore#//Datatype">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Datatype/model"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//DatetimeFeature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//DatetimeFeature/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//DatetimeFeature/value"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//DatetimeType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//DatetimeType/Descriptor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//DatetimeType/SecondPrecision_Min"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//DatetimeType/SecondPrecision_Max"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//DatetimeType/SecondPrecision_Def"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//DatetimeType/DayPrecision_Min"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//DatetimeType/DayPrecision_Max"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//DatetimeType/DayPrecision_Def"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//DatetimeType/YearPrecision_Min"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//DatetimeType/YearPrecision_Max"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//DatetimeType/YearPrecision_Def"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="ORDB4ORA.ecore#//Feature"/>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//ForeignKey">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//ForeignKey/Name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//ForeignKey/OnDelete"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//ForeignKey/reference"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//Function">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Function/Return"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//IntervalFeature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//IntervalFeature/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//IntervalFeature/value"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//LOBType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//LOBType/Descriptor"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//LongAndRawType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//LongAndRawType/Descriptor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//LongAndRawType/Size_Min"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//LongAndRawType/Size_Max"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//MediaType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//MediaType/Descriptor"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//Method">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//Method/Name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Method/override"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Method/structured"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Method/parameters"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Method/returnType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//Method/Body"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//MethodParameter">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//MethodParameter/method"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//Model">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Model/datatype"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Model/table"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//Model/Name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Model/operation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Model/package"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//NestedTableType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//NestedTableType/Name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//NestedTableType/Type"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//NotNull">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//NotNull/Name"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//NumberFeature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//NumberFeature/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//NumberFeature/value"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="ORDB4ORA.ecore#//Operation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//Operation/Name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//Operation/Body"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Operation/operationParameters"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Operation/model"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Operation/package"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//OperationParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//OperationParameter/Mode"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//OperationParameter/operation"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//Package">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//Package/Name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Package/operations"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Package/model"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//Parameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//Parameter/Name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Parameter/Type"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//PrimaryKey">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//PrimaryKey/Name"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//Procedure"/>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//ROWIDType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//ROWIDType/Descriptor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//ROWIDType/Size_Min"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//ROWIDType/Size_Max"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//RawFeature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//RawFeature/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//RawFeature/value"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//ReferenceType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//ReferenceType/Name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//ReferenceType/Type"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="ORDB4ORA.ecore#//Restriction">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Restriction/attributes"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Restriction/table"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//RowFeature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//RowFeature/key"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//RowFeature/value"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//SpacialType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//SpacialType/Descriptor"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//StoredNestedTable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//StoredNestedTable/Name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//StoredNestedTable/attribute"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//StoredNestedTable/typed"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//StructuralComponent">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//StructuralComponent/Name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//StructuralComponent/Type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//StructuralComponent/features"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//StructuralComponent/restrictions"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//StructuredType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//StructuredType/Name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//StructuredType/attribute"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//StructuredType/method"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//StructuredType/typed"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//StructuredType/supertype"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//StructuredType/is_instantiable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//StructuredType/is_final"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="ORDB4ORA.ecore#//SuppliedType"/>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//Table">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//Table/Name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Table/restriction"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Table/columns"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Table/model"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Table/triggers"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//Trigger">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//Trigger/Name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//Trigger/Body"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//Trigger/Event"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//Trigger/Action"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Trigger/updateColumns"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Trigger/table"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//TypedTable">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//TypedTable/storedNested"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//TypedTable/structuredType"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//Unique">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//Unique/Name"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//Varray">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//Varray/Name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//Varray/NumElements"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//Varray/Type"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//XMLType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//XMLType/Descriptor"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//DerivedTable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ORDB4ORA.ecore#//DerivedTable/query_expression"/>
+    </genClasses>
+    <genClasses ecoreClass="ORDB4ORA.ecore#//View">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//View/tables"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ORDB4ORA.ecore#//View/components"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

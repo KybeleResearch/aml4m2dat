@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "http:///ORDB4ORA.ecore" 
+       class = "ORDB4ORA.ORDB4ORAPackage"
+       genModel = "model/ORDB4ORA.genmodel" /> 
+  </extension>
+  <extension point="org.eclipse.ui.startup">
+      <startup class="validation.constraints.Startup"/>
+   </extension>
+  <extension
+        point="org.eclipse.emf.validation.constraintProviders">
+     <category
+           id="ORDB4ORA.category1"
+           mandatory="true"
+           name="Constraints">
+     </category>
+     <constraintProvider
+           cache="true"
+           mode="Batch">
+        <package
+              namespaceUri="ORDB4ORA.package1">
+        </package>
+        <constraints
+              categories="ordb4ora.validation.constraints">
+           <constraint
+                 class="validation.constraints.ValidationConstraints"
+                 id="ORDB4ORA.validation.constraints"
+                 lang="Java"
+                 mode="Batch"
+                 name="Only One Constraint"
+                 severity="ERROR"
+                 statusCode="ERROR">
+              <message>
+                 Table {0} has been found to have more than one Primary Key.
+              </message>
+              <description>
+                 A Table should have at the most one Primary Key
+              </description>
+              <target
+                    class="Table">
+              </target>
+           </constraint>
+        </constraints>
+     </constraintProvider>
+  </extension>
+  <extension
+        point="org.eclipse.emf.validation.constraintProviders">
+     <category
+           id="ORDB4ORA.category2"
+           name="Constraints">
+     </category>
+     <constraintProvider
+           cache="true"
+           mode="Batch">
+        <package
+              namespaceUri="ORDB4ORA.package1">
+        </package>
+        <constraints
+              categories="ordb4ora.validation.constraints">
+           <constraint
+                 id="ORDB4ORA.validation.constraints"
+                 lang="OCL"
+                 mode="Batch"
+                 name="Only One Constraint"
+                 severity="ERROR"
+                 statusCode="101">
+              <message>
+                 Table {0} has been found to have more than one Primary Key.
+              </message>
+              <description>
+                 A Table should have at the most one Primary Key
+              </description>
+              <target class="Table">
+                <![CDATA[
+         			self.Name <> 'a'
+      				]]>
+                    
+              </target>
+           </constraint>
+        </constraints>
+     </constraintProvider>
+  </extension>
+  <extension
+        point="org.eclipse.epsilon.evl.emf.validation">
+     <constraintsBinding
+           constraints="model/ORDB4ORA.evl"
+           namespaceURI="http:///ORDB4ORA.ecore">
+     </constraintsBinding>
+  </extension>
+  <extension
+        point="org.eclipse.ui.ide.markerResolution">
+     <markerResolutionGenerator
+           class="org.eclipse.epsilon.evl.emf.validation.EvlMarkerResolutionGenerator"
+           markerType="org.eclipse.emf.ecore.diagnostic">
+     </markerResolutionGenerator>
+  </extension>
+</plugin>

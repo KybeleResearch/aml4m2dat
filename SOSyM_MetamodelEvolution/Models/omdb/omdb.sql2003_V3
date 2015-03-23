@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<SQL2003_V3:Schema xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SQL2003_V3="http://SQL2003_V3.ecore" name="Online Movie Database">
+  <datatypes xsi:type="SQL2003_V3:ARRAY" name="ext_review" type="//@datatypes.55" num_elements="5"/>
+  <datatypes xsi:type="SQL2003_V3:BinaryStringType" descriptor="BINARYVARYING"/>
+  <datatypes xsi:type="SQL2003_V3:BinaryStringType"/>
+  <datatypes xsi:type="SQL2003_V3:BinaryStringType" descriptor="BINARY"/>
+  <datatypes xsi:type="SQL2003_V3:BooleanType"/>
+  <datatypes xsi:type="SQL2003_V3:CharacterStringType"/>
+  <datatypes xsi:type="SQL2003_V3:CharacterStringType" descriptor="CHARACTERVARYING"/>
+  <datatypes xsi:type="SQL2003_V3:CharacterStringType" descriptor="CHARACTERLARGEOBJECT"/>
+  <datatypes xsi:type="SQL2003_V3:DatetimeType"/>
+  <datatypes xsi:type="SQL2003_V3:DatetimeType" descriptor="TIMESTAMPWITHOUTTIMEZONE"/>
+  <datatypes xsi:type="SQL2003_V3:DatetimeType" descriptor="TIMESTAMPWITHTIMEZONE"/>
+  <datatypes xsi:type="SQL2003_V3:DatetimeType" descriptor="TIMEWITHTIMEZONE"/>
+  <datatypes xsi:type="SQL2003_V3:DatetimeType" descriptor="TIMEWITHOUTTIMEZONE"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="DAY_SECOND"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="YEAR"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="MONTH"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="DAY"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="SECOND"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="DAY_HOUR"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="DAY_MINUTE"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="HOUR_MINUTE"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="HOUR_SECOND"/>
+  <datatypes xsi:type="SQL2003_V3:IntervalType" descriptor="MINUTE_SECOND"/>
+  <datatypes xsi:type="SQL2003_V3:MULTISET" name="user_review_type" type="//@datatypes.56"/>
+  <datatypes xsi:type="SQL2003_V3:MULTISET" name="Person_type" type="//@datatypes.42"/>
+  <datatypes xsi:type="SQL2003_V3:MULTISET" name="cast_type" type="//@datatypes.41"/>
+  <datatypes xsi:type="SQL2003_V3:MULTISET" name="movie_type" type="//@datatypes.39"/>
+  <datatypes xsi:type="SQL2003_V3:MULTISET" name="product_type" type="//@datatypes.43"/>
+  <datatypes xsi:type="SQL2003_V3:MULTISET" name="actor_type" type="//@datatypes.44"/>
+  <datatypes xsi:type="SQL2003_V3:NumericType"/>
+  <datatypes xsi:type="SQL2003_V3:NumericType" descriptor="DECIMAL"/>
+  <datatypes xsi:type="SQL2003_V3:NumericType" descriptor="SMALLINT"/>
+  <datatypes xsi:type="SQL2003_V3:NumericType" descriptor="INTEGER"/>
+  <datatypes xsi:type="SQL2003_V3:NumericType" descriptor="FLOAT"/>
+  <datatypes xsi:type="SQL2003_V3:NumericType" descriptor="REAL"/>
+  <datatypes xsi:type="SQL2003_V3:NumericType" descriptor="DOUBLEPRECISION"/>
+  <datatypes xsi:type="SQL2003_V3:NumericType" descriptor="BIGINT"/>
+  <datatypes xsi:type="SQL2003_V3:ReferenceType" name="Ref_director_type" type="//@datatypes.57"/>
+  <datatypes xsi:type="SQL2003_V3:ReferenceType" name="Ref_movie_type" type="//@datatypes.51"/>
+  <datatypes xsi:type="SQL2003_V3:ReferenceType" name="Ref_playwriter_type" type="//@datatypes.59"/>
+  <datatypes xsi:type="SQL2003_V3:ReferenceType" name="Ref_cast_type" type="//@datatypes.52"/>
+  <datatypes xsi:type="SQL2003_V3:ReferenceType" name="Ref_Person_type" type="//@datatypes.47"/>
+  <datatypes xsi:type="SQL2003_V3:ReferenceType" name="Ref_product_type" type="//@datatypes.48"/>
+  <datatypes xsi:type="SQL2003_V3:ReferenceType" name="Ref_actor_type" type="//@datatypes.58"/>
+  <datatypes xsi:type="SQL2003_V3:XMLType"/>
+  <datatypes xsi:type="SQL2003_V3:StructuredType" name="OID&lt;&lt;udt>>" is_instantiable="true"/>
+  <datatypes xsi:type="SQL2003_V3:StructuredType" name="Person_type &lt;&lt;UDT>>" is_instantiable="true" typed="//@tables.0">
+    <attributes name="country" type="//@datatypes.6"/>
+    <attributes name="dob" type="//@datatypes.8"/>
+    <attributes name="name" type="//@datatypes.6"/>
+    <attributes name="sex" type="//@datatypes.5"/>
+  </datatypes>
+  <datatypes xsi:type="SQL2003_V3:StructuredType" name="product_type &lt;&lt;UDT>>" is_instantiable="true" typed="//@tables.1">
+    <attributes name="availability" type="//@datatypes.6"/>
+    <attributes name="list_price" type="//@datatypes.35"/>
+    <attributes name="our_price" type="//@datatypes.35"/>
+    <attributes name="production_company" type="//@datatypes.6"/>
+    <attributes name="rating" type="//@datatypes.6"/>
+    <attributes name="release_date" type="//@datatypes.8"/>
+    <attributes name="runtime" type="//@datatypes.33"/>
+    <attributes name="&lt;&lt;NOT NULL>> movie" type="//@datatypes.39" restrictions="//@tables.1/@restrictions.0 //@tables.13/@restrictions.0 //@tables.14/@restrictions.0"/>
+  </datatypes>
+  <datatypes xsi:type="SQL2003_V3:StructuredType" name="people &lt;&lt;UDT>>" is_instantiable="true" typed="//@tables.2">
+    <attributes name="id" type="//@datatypes.46"/>
+    <attributes name="&lt;&lt;NOT NULL>> persons" type="//@datatypes.25" restrictions="//@tables.2/@restrictions.0"/>
+  </datatypes>
+  <datatypes xsi:type="SQL2003_V3:StructuredType" name="movies &lt;&lt;UDT>>" is_instantiable="true" typed="//@tables.3">
+    <attributes name="id" type="//@datatypes.46"/>
+    <attributes name="&lt;&lt;NOT NULL>> movies" type="//@datatypes.27" restrictions="//@tables.3/@restrictions.0"/>
+  </datatypes>
+  <datatypes xsi:type="SQL2003_V3:StructuredType" name="movie_type &lt;&lt;UDT>>" is_instantiable="true" typed="//@tables.4">
+    <attributes name="genre" type="//@datatypes.6" restrictions="//@tables.4/@restrictions.4" has_domain="//@domains.0"/>
+    <attributes name="studio" type="//@datatypes.6"/>
+    <attributes name="synopsis" type="//@datatypes.6"/>
+    <attributes name="title" type="//@datatypes.6"/>
+    <attributes name="website" type="//@datatypes.6"/>
+    <attributes name="ext_review" type="//@datatypes.0"/>
+    <attributes name="user_review" type="//@datatypes.24"/>
+    <attributes name="&lt;&lt;NOT NULL>> director" type="//@datatypes.38" restrictions="//@tables.4/@restrictions.0"/>
+    <attributes name="&lt;&lt;NOT NULL>> playwriter_ref" type="//@datatypes.40" restrictions="//@tables.4/@restrictions.1"/>
+    <attributes name="&lt;&lt;NOT NULL>> cast" type="//@datatypes.41" restrictions="//@tables.4/@restrictions.2"/>
+    <attributes name="&lt;&lt;NOT NULL>> products" type="//@datatypes.28" restrictions="//@tables.4/@restrictions.3"/>
+  </datatypes>
+  <datatypes xsi:type="SQL2003_V3:StructuredType" name="cast_type &lt;&lt;UDT>>" is_instantiable="true" typed="//@tables.5">
+    <attributes name="casting_order" type="//@datatypes.33"/>
+    <attributes name="role" type="//@datatypes.6"/>
+    <attributes name="&lt;&lt;NOT NULL>> movie" type="//@datatypes.39" restrictions="//@tables.5/@restrictions.1"/>
+    <attributes name="&lt;&lt;NOT NULL>> actors" type="//@datatypes.29" restrictions="//@tables.5/@restrictions.0"/>
+  </datatypes>
+  <datatypes xsi:type="SQL2003_V3:StructuredType" name="castings &lt;&lt;UDT>>" is_instantiable="true" typed="//@tables.6">
+    <attributes name="id" type="//@datatypes.46"/>
+    <attributes name="&lt;&lt;NOT NULL>> casts" type="//@datatypes.26" restrictions="//@tables.6/@restrictions.0"/>
+  </datatypes>
+  <datatypes xsi:type="SQL2003_V3:StructuredType" name="products &lt;&lt;UDT>>" is_instantiable="true" typed="//@tables.7">
+    <attributes name="id" type="//@datatypes.46"/>
+    <attributes name="&lt;&lt;NOT NULL>> products" type="//@datatypes.28" restrictions="//@tables.7/@restrictions.0"/>
+  </datatypes>
+  <datatypes xsi:type="SQL2003_V3:StructuredType" name="external_review_type &lt;&lt;UDT>>" is_instantiable="true" typed="//@tables.8">
+    <attributes name="review_source" type="//@datatypes.6"/>
+    <attributes name="review_url" type="//@datatypes.6"/>
+  </datatypes>
+  <datatypes xsi:type="SQL2003_V3:StructuredType" name="user_review_type &lt;&lt;UDT>>" is_instantiable="true" typed="//@tables.9">
+    <attributes name="review_date" type="//@datatypes.8"/>
+    <attributes name="review_text" type="//@datatypes.6"/>
+    <attributes name="reviewer" type="//@datatypes.6"/>
+    <attributes name="score" type="//@datatypes.33"/>
+  </datatypes>
+  <datatypes xsi:type="SQL2003_V3:StructuredType" name="director_type &lt;&lt;UDT>>" is_instantiable="true" super_type="//@datatypes.47" typed="//@tables.10">
+    <attributes name="&lt;&lt;NOT NULL>> movies" type="//@datatypes.27" restrictions="//@tables.10/@restrictions.0"/>
+  </datatypes>
+  <datatypes xsi:type="SQL2003_V3:StructuredType" name="actor_type &lt;&lt;UDT>>" is_instantiable="true" super_type="//@datatypes.47" typed="//@tables.11">
+    <attributes name="&lt;&lt;NOT NULL>> casts" type="//@datatypes.26" restrictions="//@tables.11/@restrictions.0"/>
+  </datatypes>
+  <datatypes xsi:type="SQL2003_V3:StructuredType" name="playwriter_type &lt;&lt;UDT>>" is_instantiable="true" super_type="//@datatypes.47" typed="//@tables.12">
+    <attributes name="&lt;&lt;NOT NULL>> movies" type="//@datatypes.39" restrictions="//@tables.12/@restrictions.0"/>
+  </datatypes>
+  <datatypes xsi:type="SQL2003_V3:StructuredType" name="video_type &lt;&lt;UDT>>" is_instantiable="true" super_type="//@datatypes.48" typed="//@tables.13">
+    <attributes name="format" type="//@datatypes.6"/>
+  </datatypes>
+  <datatypes xsi:type="SQL2003_V3:StructuredType" name="dvd_type &lt;&lt;UDT>>" is_instantiable="true" super_type="//@datatypes.48" typed="//@tables.14">
+    <attributes name="acpect_ratio" type="//@datatypes.6"/>
+    <attributes name="dvd_encoding" type="//@datatypes.6"/>
+    <attributes name="number_of_disos" type="//@datatypes.33"/>
+  </datatypes>
+  <tables xsi:type="SQL2003_V3:TypedTable" name="Person_type &lt;&lt;PERSISTENT>>" structured="//@datatypes.47"/>
+  <tables xsi:type="SQL2003_V3:TypedTable" name="product_type &lt;&lt;PERSISTENT>>" structured="//@datatypes.48">
+    <restrictions xsi:type="SQL2003_V3:NotNull" columns="//@datatypes.48/@attributes.7"/>
+  </tables>
+  <tables xsi:type="SQL2003_V3:TypedTable" name="people &lt;&lt;PERSISTENT>>" structured="//@datatypes.49">
+    <restrictions xsi:type="SQL2003_V3:NotNull" columns="//@datatypes.49/@attributes.1"/>
+  </tables>
+  <tables xsi:type="SQL2003_V3:TypedTable" name="movies &lt;&lt;PERSISTENT>>" structured="//@datatypes.50">
+    <restrictions xsi:type="SQL2003_V3:NotNull" columns="//@datatypes.50/@attributes.1"/>
+  </tables>
+  <tables xsi:type="SQL2003_V3:TypedTable" name="movie_type &lt;&lt;PERSISTENT>>" structured="//@datatypes.51">
+    <restrictions xsi:type="SQL2003_V3:NotNull" columns="//@datatypes.51/@attributes.7"/>
+    <restrictions xsi:type="SQL2003_V3:NotNull" columns="//@datatypes.51/@attributes.8"/>
+    <restrictions xsi:type="SQL2003_V3:NotNull" columns="//@datatypes.51/@attributes.9"/>
+    <restrictions xsi:type="SQL2003_V3:NotNull" columns="//@datatypes.51/@attributes.10"/>
+    <restrictions xsi:type="SQL2003_V3:DomainConstraint" columns="//@datatypes.51/@attributes.0" name="Movie_Type_Domain_Genre" domain="//@domains.0"/>
+  </tables>
+  <tables xsi:type="SQL2003_V3:TypedTable" name="cast_type &lt;&lt;PERSISTENT>>" structured="//@datatypes.52">
+    <restrictions xsi:type="SQL2003_V3:NotNull" columns="//@datatypes.52/@attributes.3"/>
+    <restrictions xsi:type="SQL2003_V3:NotNull" columns="//@datatypes.52/@attributes.2"/>
+  </tables>
+  <tables xsi:type="SQL2003_V3:TypedTable" name="castings &lt;&lt;PERSISTENT>>" structured="//@datatypes.53">
+    <restrictions xsi:type="SQL2003_V3:NotNull" columns="//@datatypes.53/@attributes.1"/>
+  </tables>
+  <tables xsi:type="SQL2003_V3:TypedTable" name="products &lt;&lt;PERSISTENT>>" structured="//@datatypes.54">
+    <restrictions xsi:type="SQL2003_V3:NotNull" columns="//@datatypes.54/@attributes.1"/>
+  </tables>
+  <tables xsi:type="SQL2003_V3:TypedTable" name="external_review_type &lt;&lt;PERSISTENT>>" structured="//@datatypes.55"/>
+  <tables xsi:type="SQL2003_V3:TypedTable" name="user_review_type &lt;&lt;PERSISTENT>>" structured="//@datatypes.56"/>
+  <tables xsi:type="SQL2003_V3:TypedTable" name="director_type &lt;&lt;PERSISTENT>>" structured="//@datatypes.57">
+    <restrictions xsi:type="SQL2003_V3:NotNull" columns="//@datatypes.57/@attributes.0"/>
+  </tables>
+  <tables xsi:type="SQL2003_V3:TypedTable" name="actor_type &lt;&lt;PERSISTENT>>" structured="//@datatypes.58">
+    <restrictions xsi:type="SQL2003_V3:NotNull" columns="//@datatypes.58/@attributes.0"/>
+  </tables>
+  <tables xsi:type="SQL2003_V3:TypedTable" name="playwriter_type &lt;&lt;PERSISTENT>>" structured="//@datatypes.59">
+    <restrictions xsi:type="SQL2003_V3:NotNull" columns="//@datatypes.59/@attributes.0"/>
+  </tables>
+  <tables xsi:type="SQL2003_V3:TypedTable" name="video_type &lt;&lt;PERSISTENT>>" structured="//@datatypes.60">
+    <restrictions xsi:type="SQL2003_V3:NotNull" columns="//@datatypes.48/@attributes.7"/>
+  </tables>
+  <tables xsi:type="SQL2003_V3:TypedTable" name="dvd_type &lt;&lt;PERSISTENT>>" structured="//@datatypes.61">
+    <restrictions xsi:type="SQL2003_V3:NotNull" columns="//@datatypes.48/@attributes.7"/>
+  </tables>
+  <domains name="genre_domain" expression="'M' or 'F'" default="M" defines="//@datatypes.51/@attributes.0" constraint="//@tables.4/@restrictions.4"/>
+</SQL2003_V3:Schema>
